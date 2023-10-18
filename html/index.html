@@ -2,9 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test</title>
+    <title>Climate neutral locations</title>
 </head>
 <body>
-    <h1>Herzlich Willkommen</h1>
+    <div id="login">
+        <h1>Name der WebApplication</h1>
+        <h1>Login</h1>
+        <form id="formLogin">
+            <label for="username">Username:*</label>
+            <input type="text" id="username" required>
+
+            <label for="password">Password:*</label>
+            <input type="password" id="password" required>
+
+            <input type="submit" value="Login">
+        </form>
+    </div>
+    <hr>
+    <h2>Herzlich Willkommen [Daniel]</h2>
+    <button id="logout">Logout</button>
+    <div id="container_location">
+        <!--Lieber mit Listen arbeiten-->
+        <ul>
+            <li>Location1</li>
+            <li>Location2</li>
+            <li>Location3</li>
+        </ul>
+    </div>
+    <div id="main">
+        <div id="map>">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.3139454468287!2d13.41331537668164!3d52.52775377206314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1c5c540487%3A0x7347f0f8dc167e50!2sTorstra%C3%9Fe%201%2C%2010119%20Berlin!5e0!3m2!1sde!2sde!4v1697565044138!5m2!1sde!2sde"
+                    width="600"
+                    height="450"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <button id="add">Add new location</button>
+    </div>
+    <footer>
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutzerklärung</a>
+    </footer>
+    <hr>
+    <div id="add-screen">
+        <h1>Add new location</h1>
+        <form id="detaills_of_location">
+            <label for="name_of_location">Name:*</label>
+            <input type="text" id="name_of_location" required>
+
+            <label for="description">Description:*</label>
+            <input type="text" id="description" required>
+
+            <label for="street">Street:*</label>
+            <input type="text" id="street" required>
+
+            <label for="postcode">Postcode:*</label>
+            <input type="text" id="postcode" required>
+
+            <label for="cars">State</label>
+            <select name="location_berlin" id="cars">
+                <option value="volvo">Berlin</option>
+                <option value="saab">Brandenburg</option>
+            </select>
+
+            <label for="lat">Lat:</label>
+            <input type="number" id="lat">
+
+            <label for="lon">Lon:</label>
+            <input type="number" id="lon">
+
+            <button class="#">Cancel</button>
+            <button class="#">Save</button>
+        </form>
+    </div>
+    <hr>
+    <div id="update-delete-screen">
+        <h1>Change location</h1>
+        <form id="detaills_for_changing">
+            <label for="name_changing">Name:</label>
+            <input type="text" id="name_changing" value="Edeka">
+
+            <label for="description_changing">Description:</label>
+            <input type="text" id="description_changing" value="Lebensmittelgeschäft">
+
+            <label for="street_changing">Street:</label>
+            <input type="text" id="street_changing" value="Friedrichstraße">
+
+            <label for="postcode_changing">Postcode:</label>
+            <input type="text" id="postcode_changing" value="10117">
+
+            <label for="location_changing">State</label>
+            <select name="location_berlin_changing" id="location_changing">
+                <option value="volvo">Berlin</option>
+                <option value="saab">Brandenburg</option>
+            </select>
+
+            <label for="changing-lat">Lat:</label>
+            <input type="number" id="changing-lat" value="52.52028288709338">
+
+            <label for="changing-lon">Lon:</label>
+            <input type="number" id="changing-lon" value="13.38685286856809">
+
+            <button id="updateBtn" class="#">Update</button>
+            <button id="deleteBtn" class="#">Delete</button>
+            <button id="cancleBtn" class="#">Cancel</button>
+        </form>
+    </div>
 </body>
 </html>
