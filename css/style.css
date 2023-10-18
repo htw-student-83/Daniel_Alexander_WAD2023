@@ -1,0 +1,127 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+
+.web-name{
+    display: flex;
+    justify-content: center;
+}
+
+#submit{
+    font-size: 16px;
+    background-color: #e8cd2d;
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    width: 96%;
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.login, .add, .delete-update{
+    display: flex;
+    justify-content: center;
+}
+
+.login-window, .add-window, .delete-update-window{
+    width: 500px;
+    height: 300px;
+    padding: 10px 50px 25px;
+    border: 2px solid rgb(128, 128, 128);
+    border-radius: 10px;
+}
+
+.title-colour{
+    background-color: #e8cd2d;
+    color: white;
+    margin-top: -10px;
+    margin-left: -50px;
+    margin-right: -50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align:center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input[type=text], input[type=password]{
+    width: 70%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 25px;
+}
+
+#name-add, #address-add, #postCode-add, #city-add,
+#name-du, #address-du, #postCode-du, #city-du{
+    width: 50%;
+    resize: vertical;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+label {
+    padding: 24px 12px 30px 0;
+    display: inline-block;
+}
+
+.container {
+    padding: 16px;
+}
+
+#main-title{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+#welcome-message{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 70px;
+}
+
+.main-address-map{
+    display: flex;
+    justify-content: center;
+}
+
+.main-address{
+    margin-right: 50px;
+    font-size: 15px;
+
+    padding: 25px 25px 273px;
+    border: 2px solid rgb(128, 128, 128);
+    border-radius: 10px;
+}
+
+#map{
+    width: 600px;
+    height: 400px;
+    border-radius: 10px;
+    margin-top: 50px;
+}
+
+#addLocation-main, #logout-main{
+    width: 115px;
+    display: block;
+}
+
+#addLocation-main {
+    margin-bottom: 12px;
+}
+
+#logout-main {
+    margin-top: 12px;
+}

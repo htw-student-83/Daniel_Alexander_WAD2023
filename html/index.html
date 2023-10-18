@@ -2,27 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style.css" />
     <title>Climate neutral locations</title>
 </head>
 <body>
-    <div id="login">
-        <h1>Name der WebApplication</h1>
-        <h1>Login</h1>
-        <form id="formLogin">
-            <label for="username">Username:*</label>
-            <input type="text" id="username" required>
+    <div class="container">
 
-            <label for="password">Password:*</label>
-            <input type="password" id="password" required>
+        <div class="web-name">
+            <h1>Name der WebApplication</h1>
+        </div>
 
-            <input type="submit" value="Login">
-        </form>
-    </div>
+        <div class="login" id="loginID">
+            <div class="login-window">
+
+                <h2 class="title-colour">Login</h2>
+
+                <form id="formLogin" method="GET" name="formName-login">
+
+                <label for="username-login"><b>Username:*</b></label>
+                <input type="text" placeholder="Max Mustermann" id="username-login" required value="">
+
+                <label for="password-login"><b>Password:*</b></label>
+                <input type="password" placeholder="password" id="password-login" required value="">
+
+                <button value="login" type="submit" id="submit">Login</button>
+            </form>
+
+            </div>
+        </div>
     <hr>
     <h2>Herzlich Willkommen [Daniel]</h2>
     <button id="logout">Logout</button>
     <div id="container_location">
-        <!--Lieber mit Listen arbeiten-->
         <ul>
             <li>Location1</li>
             <li>Location2</li>
@@ -49,7 +60,7 @@
     <hr>
     <div id="add-screen">
         <h1>Add new location</h1>
-        <form id="detaills_of_location">
+        <form id="details_of_location">
             <label for="name_of_location">Name:*</label>
             <input type="text" id="name_of_location" required>
 
@@ -81,7 +92,7 @@
     <hr>
     <div id="update-delete-screen">
         <h1>Change location</h1>
-        <form id="detaills_for_changing">
+        <form id="details_for_changing">
             <label for="name_changing">Name:</label>
             <input type="text" id="name_changing" value="Edeka">
 
@@ -108,8 +119,10 @@
 
             <button id="updateBtn" class="#">Update</button>
             <button id="deleteBtn" class="#">Delete</button>
-            <button id="cancleBtn" class="#">Cancel</button>
+            <button id="cancelBtn" class="#">Cancel</button>
         </form>
+    </div>
+
     </div>
 </body>
 </html>
