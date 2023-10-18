@@ -1,13 +1,40 @@
-body {font-family: Arial, Helvetica, sans-serif;}
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+}
 
 .web-name{
     display: flex;
     justify-content: center;
+    background: #e6e4e5;
+    margin-bottom: 30px;
+    height: 80px;
+    box-shadow: 5px 10px 8px #c4c4c4;
+}
+
+.web-name h1{
+    margin-left: 40px;
+    padding-top: 20px;
+    font-family: 'sans-serif';
+}
+
+#image{
+    padding-top: 15px;
+    width: 120px;
+    height: 60px;
 }
 
 #submit{
     font-size: 16px;
-    background-color: #e8cd2d;
+    background-color: rgb(117, 218, 117);
+    /*background-color: #e8cd2d;*/
     border: none;
     color: black;
     font-weight: bold;
@@ -21,6 +48,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 .login, .add, .delete-update{
     display: flex;
     justify-content: center;
+    margin: 80px 0 90px 0;
 }
 
 .login-window, .add-window, .delete-update-window{
@@ -32,7 +60,7 @@ body {font-family: Arial, Helvetica, sans-serif;}
 }
 
 .title-colour{
-    background-color: #e8cd2d;
+    background-color:  rgb(117, 218, 117);
     color: white;
     margin-top: -10px;
     margin-left: -50px;
@@ -58,7 +86,7 @@ input[type=text], input[type=password]{
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
-    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 #name-add, #address-add, #postCode-add, #city-add,
@@ -75,9 +103,6 @@ label {
     display: inline-block;
 }
 
-.container {
-    padding: 16px;
-}
 
 #main-title{
     display: flex;
