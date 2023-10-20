@@ -1,3 +1,6 @@
+/*
+general layout
+ */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +13,7 @@ body {
     padding: 0;
 }
 
-.web-name{
+.web-name, .main-message{
     display: flex;
     justify-content: center;
     background: #e6e4e5;
@@ -19,7 +22,7 @@ body {
     box-shadow: 5px 10px 8px #c4c4c4;
 }
 
-.web-name h1{
+.web-name h1, .main-message h1{
     margin-left: 40px;
     padding-top: 20px;
     font-family: 'sans-serif';
@@ -30,6 +33,10 @@ body {
     width: 120px;
     height: 60px;
 }
+
+/*
+login+add+du layout
+ */
 
 #loginButton{
     font-size: 16px;
@@ -42,6 +49,71 @@ body {
     border-radius: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.login-window{
+    width: 600px;
+    height: 300px;
+    padding: 10px 50px 25px;
+    border: 2px solid rgb(128, 128, 128);
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 200px;
+}
+
+.login, .add, .du{
+    display: flex;
+    justify-content: center;
+    margin: 80px 0 90px 0;
+}
+
+.login{
+    margin-bottom: 300px;
+}
+
+.title-colour, .add-message, .du-message{
+    background-color:  rgb(117, 218, 117);
+    color: white;
+    margin-top: -10px;
+    margin-left: -50px;
+    margin-right: -50px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align:center;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.add-window, .du-window{
+    width: 600px;
+    height: 750px;
+    padding: 10px 50px 25px;
+    border: 2px solid rgb(128, 128, 128);
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    box-shadow: 5px 10px 8px #c4c4c4;
+}
+
+/*
+froms + buttons
+ */
+
+input[type=text], input[type=password], input[type=number], #city-add, #city-du{
+    width: 70%;
+    padding: 12px;
+    margin-left: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-top: 25px;
+}
+
+label {
+    padding: 24px 12px 30px 0;
+    width: 100px;
+    display: inline-block;
 }
 
 #addCancelButton, #addLocationButton, #duCancelBtn,
@@ -66,47 +138,63 @@ body {
     display: flex;
 }
 
+button:hover {
+    opacity: 0.8;
+}
+
+/*
+main layout
+ */
+
+.main-container{
+    background-color: lightgrey;
+}
 
 .welcome-message{
     margin-top: 30px;
     margin-left: 30px;
 }
 
-
-#main{
+#mapNbuttons{
     background-color: rgb(219, 219, 214);
     width: 950px;
     height: 500px;
     padding: 25px 0 0 25px;
-    margin-left: -100px;
-    margin-bottom: 150px;
+    margin-left: -350px;
+    margin-bottom: 100px;
     border: 2px solid #d0cdcd;
 }
 
-.main_container{
+.main{
     display: flex;
     justify-content: space-around;
-    margin-top: 50px;
+    margin-top: 150px;
 }
 
-#container_location{
+.addressList{
     background-color: rgb(219, 219, 214);
-    width: 200px;
+    width: 300px;
     height: 500px;
     border: 2px solid #d0cdcd;
+    margin-left: 200px;
 }
 
-ul li{
+#addressTable{
     list-style: none;
 }
 
-iframe{
+#addressTable li{
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+#map{
     border-radius: 20px;
     border: 9px solid rgb(12, 12, 12);
 }
 
 
-.al_btn{
+.mainButtons{
     display: flex;
 }
 
@@ -154,73 +242,13 @@ iframe{
     cursor: pointer;
 }
 
-
-.login, .add, .du{
-    display: flex;
-    justify-content: center;
-    margin: 80px 0 90px 0;
-}
-
-.login-window{
-    width: 600px;
-    height: 300px;
-    padding: 10px 50px 25px;
-    border: 2px solid rgb(128, 128, 128);
-    border-radius: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.add-window, .du-window{
-    width: 600px;
-    height: 750px;
-    padding: 10px 50px 25px;
-    border: 2px solid rgb(128, 128, 128);
-    border-radius: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
-     box-shadow: 5px 10px 8px #c4c4c4;
-}
-
-input[type=text], input[type=password], input[type=number], #city-add, #city-du{
-    width: 70%;
-    padding: 12px;
-    margin-left: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    resize: vertical;
-    margin-top: 25px;
-}
-
-label {
-    padding: 24px 12px 30px 0;
-    width: 100px;
-    display: inline-block;
-}
-
-.title-colour, .add-message, .du-message{
-    background-color:  rgb(117, 218, 117);
-    color: white;
-    margin-top: -10px;
-    margin-left: -50px;
-    margin-right: -50px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    text-align:center;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-button:hover {
-    opacity: 0.8;
-}
-
 footer{
     text-align: center;
     width: 100%;
     height: 50px;
     padding-top: 15px;
     background-color: #b3b2b1;
+    margin-top: 90px;
 }
 
 footer a{
@@ -231,8 +259,8 @@ footer a{
 
 footer a:hover{
     text-decoration: underline;
-
 }
+
 
 /*
 #main-title{
