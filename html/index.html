@@ -2,88 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../css/style.css" />
-    <title>Climate neutral locations</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Klimaunneutrale Luft</title>
 </head>
 <body>
 <div class="container">
 
-    <div class="web-name">
-        <img id="image" src="../image/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
-        <h1>Name der WebApplication</h1>
-    </div>
+    <div class="login-container">
 
-    <div class="login">
-
-        <div class="login-window">
-
-            <h2 class="title-colour">Login</h2>
-
-            <form id="formLogin" method="GET" name="formLogin">
-
-                <label for="username-login"><b>Username:*</b></label>
-                <input type="text" placeholder="Max Mustermann" id="username-login" required value="" autofocus>
-
-                <label for="password-login"><b>Password:*</b></label>
-                <input type="password" placeholder="password" id="password-login" required value="">
-
-                <button value="login" type="submit" id="loginButton">Login</button>
-            </form>
-
+        <div class="web-name">
+            <img id="image" src="../image/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
+            <h1>Klimaunneutrale Luft</h1>
         </div>
 
-    </div>
+        <div class="login">
 
-    <hr>
+            <div class="login-window">
+
+                <h2 class="login-message">Login</h2>
+
+                <form id="formLogin" method="GET" name="formLogin">
+
+                    <label for="username-login"><b>Username:*</b></label>
+                    <input type="text" placeholder="Max Mustermann" id="username-login" required value="" autofocus>
+
+                    <label for="password-login"><b>Password:*</b></label>
+                    <input type="password" placeholder="password" id="password-login" required value="">
+
+                    <button value="login" type="submit" id="loginButton">Login</button>
+                </form>
+
+            </div>
+
+        </div>
+    </div>
 
     <div class="main-container">
-
-        <div class="main-message">
-            <h1 id="welcome">Herzlich Willkommen [Daniel]</h1>
+        <div class="welcome-message">
+            <h1>Willkommen auf der Homepage</h1>
         </div>
-
-        <div class="main">
-
-            <div class="addressList">
-                <ul id="addressTable">
-                    <li>Torstraße 1, 10119 Berlin</li>
-                    <li>Torstraße 2</li>
-                    <li>Torstraße 3</li>
-                </ul>
+        <div id="add-table">
+            <ul id="table">
+                <li>Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
+                <li>Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
+                <li>Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
+            </ul>
+        </div>
+        <div id="map-container">
+            <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.3139454468287!2d13.41331537668164!3d52.52775377206314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1c5c540487%3A0x7347f0f8dc167e50!2sTorstra%C3%9Fe%201%2C%2010119%20Berlin!5e0!3m2!1sde!2sde!4v1697565044138!5m2!1sde!2sde"
+                    width="1365"
+                    height="766"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <div class="mainButtons">
+                <button class="mainAddBtn">Add new Location</button>
+                <button class="logoutBtn">Logout</button>
             </div>
 
-            <div id="mapNbuttons">
-
-                <div class="map">
-                    <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.3139454468287!2d13.41331537668164!3d52.52775377206314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1c5c540487%3A0x7347f0f8dc167e50!2sTorstra%C3%9Fe%201%2C%2010119%20Berlin!5e0!3m2!1sde!2sde!4v1697565044138!5m2!1sde!2sde"
-                            width="900"
-                            height="450"
-                            style="border:0;"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                    </iframe>
-                </div>
-
-                <div class="mainButtons">
-                    <button value="add" type="button" id="addLocation-main">Add new location</button>
-                    <button value="logout" type="button" id="logout">Logout</button>
-                </div>
-
-            </div>
         </div>
-
-        <footer id="footer">
-            <a href="#">Impressum</a>
-            <a href="#">Datenschutzerklärung</a>
+        <footer id="mainFooter">
+            <a id="Impressum" href="#">Impressum</a>
+            <a id="Datenschutzerklärung" href="#">Datenschutzerklärung</a>
         </footer>
-
     </div>
 
-    <hr>
-
-    <div class="add">
-
+    <div class="add-container">
         <div class="add-window">
 
             <h1 class="add-message">Add new location</h1>
@@ -93,8 +79,8 @@
                 <label for="name-add"><b>Name:*</b></label>
                 <input type="text" placeholder="" id="name-add" required value="">
 
-                <label for="description-add"><b>Description:*</b></label>
-                <input type="text" placeholder="" id="description-add" required value="">
+                <label for="description-add"><b>Description:</b></label>
+                <input type="text" placeholder="" id="description-add" value="">
 
                 <label for="address-add"><b>Address:*</b></label>
                 <input type="text" placeholder="" id="address-add" required value="">
@@ -115,19 +101,14 @@
                 <input type="number" placeholder="" id="lon-add" value="">
 
                 <div id="addButtonContainer">
-                    <button value="cancel" type="button" id="addCancelButton">Cancel</button>
                     <button value="add" type="submit" id="addLocationButton">Save</button>
+                    <button value="cancel" type="button" id="addCancelButton">Cancel</button>
                 </div>
             </form>
-
         </div>
-
     </div>
 
-    <hr>
-
-    <div class="du">
-
+    <div class="du-container">
         <div class="du-window">
 
             <h1 class="du-message">Delete/Update location</h1>
@@ -165,11 +146,8 @@
                 </div>
 
             </form>
-
         </div>
-
     </div>
-
 </div>
 </body>
 </html>
