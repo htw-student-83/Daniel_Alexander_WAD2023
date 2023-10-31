@@ -40,7 +40,7 @@
     height: 100vh;
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 100px auto;
+    grid-template-rows: 200px auto;
     justify-content: center;
 
     grid-template-areas:
@@ -217,7 +217,7 @@ button:hover {
     background-color: rgb(241, 245, 245);
     grid-area: addscreen;
     width: 400px;
-    height: 630px;
+    height: 650px;
     padding: 10px 50px 25px;
     border: 2px solid rgb(128, 128, 128);
     border-radius: 10px;
@@ -257,9 +257,15 @@ label {
     background-color: rgb(241, 245, 245);
     grid-area: addscreen;
     width: 400px;
-    height: 630px;
+    height: 650px;
     padding: 10px 50px 25px;
     border: 2px solid rgb(128, 128, 128);
     border-radius: 10px;
     box-shadow: 0 10px 8px #c4c4c4;
+}
+
+.requiredField{
+    font-family: 'sans-serif';
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
