@@ -22,9 +22,9 @@
 }
 
 .main-container {
+    width: 100vw;
     background-color: #c2c0c0;
     /*
-    width: 100vw;
     height: 100vh;
     background-color: #ccc;
     display: grid;
@@ -200,8 +200,9 @@ button:hover {
 }
 
 .mainButtons{
-    padding-left: 640px;
-    margin: 10px 0  10px 400px;
+    display: flex;
+    padding: 1.2em;
+    margin: 10px 50px 10px 800px;
 }
 
 .mainAddBtn{
@@ -209,6 +210,11 @@ button:hover {
     border: 1px solid rgb(84, 210, 84);
     border-radius: 10px;
     padding: 10px;
+    font-weight: bold;
+}
+
+.mainAddBtn:hover{
+     border: 1px solid rgb(11, 12, 11);
 }
 
 .logoutBtn{
@@ -217,28 +223,46 @@ button:hover {
     border-radius: 10px;
     margin-left: 20px;
     padding: 10px;
+    font-weight: bold;
+}
+
+.logoutBtn:hover{
+     border: 1px solid rgb(11, 12, 11);
 }
 
 .mainAddBtn, .logoutBtn{
-    width: 150px;
+    width: 100%;
+    font-size: 1em;
+    padding: 20px;
     cursor: pointer;
 }
 
 #mainFooter{
-    display: flex;
-    border: 1px solid rgb(144, 142, 142);
-    background-color: rgb(201, 200, 199);
-    grid-area: footer;
-    justify-content: center;
-    padding-top: 15px;
-    border-bottom: 1px solid black;
+   display: flex;
+   border: 1px solid rgb(144, 142, 142);
+   background-color: rgb(201, 200, 199);
+   grid-area: footer;
+   justify-content: center;
+   padding: 15px;
+   border-bottom: 1px solid black;
 }
 
 #Impressum, #Datenschutzerklärung{
-    margin-right: 10px;
+    font-size: 1.5em;
+    font-family: arial;
+    margin-left: 180px;
     text-decoration: none;
     color: black;
     cursor: pointer;
+}
+
+#Impressum:hover{
+    text-decoration: underline;
+}
+
+
+#Datenschutzerklärung:hover{
+    text-decoration: underline;
 }
 
 /*add*/
