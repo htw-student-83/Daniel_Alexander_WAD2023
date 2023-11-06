@@ -60,7 +60,7 @@
 
     grid-template-areas:
     "header"
-    "addscreen"
+    "duscreen"
 }
 
 /*header*/
@@ -322,7 +322,7 @@ label {
 
 .du-window{
     background-color: rgb(241, 245, 245);
-    grid-area: addscreen;
+    grid-area: duscreen;
     width: 400px;
     height: 650px;
     padding: 10px 50px 25px;
