@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/style.css">
-    <title>Klimaunneutrale Luft</title>
+    <title>Klimaneutrale Luft in Berlin/Brandenburg</title>
 </head>
 <body>
 <div class="container">
 
-    <div id="superLogin">
-
-        <div class="web-name">
+        <header class="web-name">
             <img id="image" src="../image/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
-            <h1>Klimaunneutrale Luft</h1>
-        </div>
+            <h1>Klimaneutrale Luft in Berlin/Brandenburg</h1>
+        </header>
 
     <div class="login-container">
-
-
-
         <div class="login">
 
             <div class="login-window">
@@ -42,33 +37,33 @@
 
         </div>
     </div>
-    </div>
 
     <div class="main-container">
         <div class="welcome-message">
-            <h1>Willkommen auf der Homepage</h1>
+            <h1>Willkommen auf der CO₂-Luftverschmutzung-Übersicht</h1>
         </div>
-        <div id="add-table">
-            <ul id="table">
-                <li>Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
-                <li>Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
-                <li>Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
-            </ul>
-        </div>
-        <div id="map-container">
-            <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.677981958717!2d13.408447189670774!3d52.52116650002413!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1f44ecef09%3A0x94a698877167831!2sAlexanderpl.%201%2C%2010178%20Berlin!5e0!3m2!1sde!2sde!4v1698766966213!5m2!1sde!2sde"
-                    width="1365"
+            <div id="add-table">
+                <h2 id="table-name">Orte in Berlin/Brandenburg</h2>
+                <ul id="table">
+                    <li>Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
+                    <li>Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
+                    <li>Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
+                </ul>
+            </div>
+            <div id="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.6779779778494!2d13.410743176681166!3d52.521166572061446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1f44ecef09%3A0x94a698877167831!2sAlexanderpl.%201%2C%2010178%20Berlin!5e0!3m2!1sde!2sde!4v1698348288469!5m2!1sde!2sde"
+                    width = "1300"
                     height="766"
                     style="border:0;"
                     allowfullscreen=""
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+                </iframe>
+            </div>
             <div class="mainButtons">
                 <button class="mainAddBtn">Add new Location</button>
                 <button class="logoutBtn">Logout</button>
             </div>
-
         </div>
         <footer id="mainFooter">
             <a id="Impressum" href="#">Impressum</a>
@@ -159,6 +154,5 @@
             </form>
         </div>
     </div>
-</div>
 </body>
 </html>
