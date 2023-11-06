@@ -145,18 +145,6 @@ button:hover {
 
 /*main*/
 
-#map{
-    display: -ms-inline-flexbox;
-    grid-area: map;
-    place-items: center;
-    overflow: hidden;
-    width: 100%;
-    object-fit: cover;
-    transition: all 0.1s;
-    position: relative;
-    z-index: 0; /* Set a lower z-index to push the map beneath the buttons */
-}
-
 #table-name{
     padding: 10px 0 1.5em;
 }
@@ -165,6 +153,7 @@ button:hover {
     grid-area: nav;
     display: -ms-inline-flexbox;
     padding: 20px;
+    margin-left: 10px;
     background-color: #f0f0f0;
     overflow-y: auto;
 }
