@@ -9,39 +9,30 @@
     width: 100vw;
     height: 100vh;
     display: grid;
-    grid-template-columns: auto;
-    grid-template-rows: auto;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
     column-gap: 10px;
     row-gap: 20px;
     justify-content: center;
 
     grid-template-areas:
-    "header"
-    "login"
-    "footer";
+    "header header header"
+    ".      login       ."
 }
 
 .main-container {
-    width: 100vw;
     background-color: #c2c0c0;
-    /*
-    height: 100vh;
-    background-color: #ccc;
     display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto 55px;
+    grid-template-columns: 1fr 2fr;
+    grid-template-rows: 1fr 18fr 1fr 0.001fr;
+    height: 100vh;
+    grid-gap: 10px;
 
     grid-template-areas:
     "header header"
-    "nav mapcard"
-    "footer footer";*/
-}
-
-.add-table_map_container{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-row: 10px;
-    grid-column: 10px;
+    "nav    map"
+    "nav    buttons"
+    "footer footer"
 }
 
 .add-container{
@@ -75,17 +66,15 @@
 /*header*/
 
 .web-name, .welcome-message{
+    grid-area: header;
     display: flex;
     justify-content: center;
-    /*background: #e6e4e5;*/
-    background-color:  rgb(226, 224, 224);
-    margin-bottom: 20px;
+    background: #e6e4e5;
     height: 80px;
-    /*box-shadow: 5px 10px 8px #c4c4c4;*/
+    box-shadow: 5px 10px 8px #c4c4c4;
 }
 
 .web-name h1, .welcome-message h1{
-    margin-left: 40px;
     padding-top: 20px;
     font-family: 'sans-serif';
 }
@@ -156,31 +145,42 @@ button:hover {
 /*main*/
 
 #map{
-    /*background-color:  rgb(217, 238, 216);*/
-    height: auto;
-    justify-self: stretch;
-    /*padding: 50px 100px 10px;*/
-    margin-left: 20px;
-    margin-right: 20px;
+    display: -ms-inline-flexbox;
+    grid-area: map;
+    place-items: center;
+    overflow: hidden;
+    width: 100%;
+    object-fit: cover;
+    transition: all 0.1s;
+    position: relative;
+    z-index: 0; /* Set a lower z-index to push the map beneath the buttons */
+}
+
+#table-name{
+    padding: 10px 0 1.5em;
 }
 
 #add-table{
-    /*border: 1px solid rgb(217, 238, 216);*/
-    /*background-color:  rgb(226, 224, 224);*/
+    grid-area: nav;
+    display: -ms-inline-flexbox;
+    padding: 20px;
+    background-color: #f0f0f0;
+    overflow-y: auto;
+}
 
-    background-color:  rgb(226, 224, 224);
-    height: auto;
-    justify-self: stretch;
-    /*padding-right: 100px;*/
-    margin-left: 20px;
-    margin-bottom: 20px;
+#add-table ul{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
 #add-table li{
-    background-color:  rgb(185, 181, 181);
     margin-bottom: 10px;
-    padding: 12px;
-    list-style-type: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color:  rgb(185, 181, 181);
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 #add-table li:hover{
@@ -188,21 +188,35 @@ button:hover {
     cursor: pointer;
 }
 
-
-#table{
-    margin: 30px;
-    min-height: 1em;
+iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 99%;
+    height: 99%;
+    border: none;
 }
 
-#map{
-    /*border: 1px solid rgb(15, 15, 15);*/
-    /*border-radius: 20px;*/
+#map {
+    display: flex;
+    grid-area: map;
+    place-items: center;
+    overflow: hidden;
+    width: 100%;
+    object-fit: cover;
+    transition: all 0.1s;
+    position: relative;
+    z-index: 0; /* Set a lower z-index to push the map beneath the buttons */
 }
 
 .mainButtons{
+    grid-area: buttons;
     display: flex;
-    padding: 1.2em;
-    margin: 10px 50px 10px 800px;
+    justify-content: right;
+    padding-right: 10px;
+    z-index: 1;
 }
 
 .mainAddBtn{
@@ -231,20 +245,19 @@ button:hover {
 }
 
 .mainAddBtn, .logoutBtn{
-    width: 100%;
-    font-size: 1em;
-    padding: 20px;
+    max-width: 100%;
+    width: 150px;
     cursor: pointer;
 }
 
 #mainFooter{
-   display: flex;
-   border: 1px solid rgb(144, 142, 142);
-   background-color: rgb(201, 200, 199);
-   grid-area: footer;
-   justify-content: center;
-   padding: 15px;
-   border-bottom: 1px solid black;
+    grid-area: footer;
+    display: flex;
+    border: 1px solid rgb(144, 142, 142);
+    background-color: rgb(201, 200, 199);
+    justify-content: center;
+    padding: 15px;
+    border-bottom: 1px solid black;
 }
 
 #Impressum, #Datenschutzerklärung{
@@ -275,7 +288,7 @@ button:hover {
     border: 2px solid rgb(128, 128, 128);
     border-radius: 10px;
     box-shadow: 0 10px 8px #c4c4c4;
-    margin-top: 0px;
+    margin-top: 0;
 }
 
 #addCancelButton, #addLocationButton,
