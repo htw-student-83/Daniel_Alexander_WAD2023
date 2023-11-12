@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/login.js"></script>
+    <script src="../js/logout.js"></script>
+    <script src="../js/addnewlocation.js"></script>
     <title>Klimaneutrale Luft in Berlin/Brandenburg</title>
 </head>
 <body onload="setAllNoneButLogin()">
@@ -41,7 +43,7 @@
 
     <div id="main-container">
         <div class="welcome-message">
-            <h1>Willkommen auf der CO₂-Luftverschmutzung-Übersicht</h1>
+            <h1>Willkommen auf der CO₂-Luftverschmutzung-Übersicht<span id="userName"></span></h1>
         </div>
         <div id="add-table">
             <h2 id="table-name">Orte in Berlin/Brandenburg</h2>
@@ -62,8 +64,8 @@
             </iframe>
         </div>
         <div class="mainButtons">
-            <button id="mainAddBtn">Add new Location</button>
-            <button class="logoutBtn">Logout</button>
+            <button id="mainAddBtn" onclick="newLocation()">Add new Location</button>
+            <button class="logoutBtn" onclick="goToLogin()">Logout</button>
         </div>
     </div>
     <footer id="mainFooter">
@@ -106,7 +108,7 @@
             <p class="requiredField">*: Fields are required!</p>
 
             <div id="addButtonContainer">
-                <button value="add" type="submit" id="addLocationButton">Save</button>
+                <button value="add" type="button" id="addLocationButton" onclick="getNewLocationData()">Save</button>
                 <button value="cancel" type="button" id="addCancelButton">Cancel</button>
             </div>
         </form>

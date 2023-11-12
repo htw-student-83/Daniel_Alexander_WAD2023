@@ -4,6 +4,7 @@ function setAllNoneButLogin(){
     document.getElementById('du-container').style.display = 'none';
 }
 
+
 //The data, which we get from the user
 function getUserLoginInput(){
     let inputUsername = document.getElementById('username-login').value;
@@ -19,8 +20,6 @@ function loginCheck(inputUsername, inputPassword){
     const guest = "normalo"
     const passwordAdmin = "password_A"
     const passwordGuest = "password_G"
-    
-    //Lieber mit if-Bedingung admin und password gleichzeitig prüfen
 
     if(inputUsername === admin && inputPassword === passwordAdmin){
         //The login is non visible
@@ -29,6 +28,7 @@ function loginCheck(inputUsername, inputPassword){
         document.getElementById('login-container').style.display = 'none';
         document.getElementById('main-container').style.display = 'grid';
         document.getElementById('web-name').style.display = 'none';
+        document.getElementById('userName').innerHTML = ", " + inputUsername;
         return true;
     }
 
@@ -38,6 +38,7 @@ function loginCheck(inputUsername, inputPassword){
         document.getElementById('login-container').style.display = 'none';
         document.getElementById('main-container').style.display = 'grid';
         document.getElementById('mainAddBtn').style.display = "none";
+        document.getElementById('userName').innerHTML = ", " + inputUsername;
         return true
     }else{
         alert('Dear Admin or Guest, your input is invalid.');
