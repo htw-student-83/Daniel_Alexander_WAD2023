@@ -5,7 +5,7 @@
 
 /*container*/
 
-.login-container{
+#login-container{
     width: 100vw;
     height: 100vh;
     display: grid;
@@ -20,7 +20,7 @@
     ".      login       ."
 }
 
-.main-container {
+#main-container {
     background-color: #c2c0c0;
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -36,7 +36,7 @@
     "footer footer"
 }
 
-.add-container{
+#add-container{
     background-color: #9f9898;
     width: 100vw;
     height: 100vh;
@@ -50,7 +50,7 @@
     "addscreen"
 }
 
-.du-container{
+#du-container{
     background-color: #9f9898;
     width: 100vw;
     height: 100vh;
@@ -66,7 +66,7 @@
 
 /*header*/
 
-.web-name, .welcome-message{
+#web-name, .welcome-message{
     grid-area: header;
     display: flex;
     justify-content: center;
@@ -75,7 +75,7 @@
     box-shadow: 5px 10px 8px #c4c4c4;
 }
 
-.web-name h1, .welcome-message h1{
+#web-name h1, .welcome-message h1{
     padding-top: 20px;
     font-family: 'sans-serif';
 }
@@ -209,7 +209,7 @@ iframe{
     z-index: 1;
 }
 
-.mainAddBtn{
+#mainAddBtn{
     background-color: rgb(84, 210, 84);
     border: 1px solid rgb(84, 210, 84);
     border-radius: 10px;
@@ -217,7 +217,7 @@ iframe{
     font-weight: bold;
 }
 
-.mainAddBtn:hover{
+#mainAddBtn:hover{
      border: 1px solid rgb(11, 12, 11);
 }
 
@@ -234,7 +234,7 @@ iframe{
      border: 1px solid rgb(11, 12, 11);
 }
 
-.mainAddBtn, .logoutBtn{
+#mainAddBtn, .logoutBtn{
     max-width: 100%;
     width: 150px;
     cursor: pointer;

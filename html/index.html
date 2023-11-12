@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/login.js"></script>
     <title>Klimaneutrale Luft in Berlin/Brandenburg</title>
 </head>
-<body>
+<body onload="setAllNoneButLogin()">
 <div class="container">
 
-        <header class="web-name">
-            <img id="image" src="../image/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
-            <h1>Klimaneutrale Luft in Berlin/Brandenburg</h1>
-        </header>
+    <header id="web-name">
+        <img id="image" src="../image/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
+        <h1>Klimaneutrale Luft in Berlin/Brandenburg</h1>
+    </header>
 
-    <div class="login-container">
+    <div id="login-container">
         <div class="login">
 
             <div class="login-window">
@@ -30,7 +31,7 @@
 
                     <p class="requiredField">*: Fields are required!</p>
 
-                    <button value="login" type="submit" id="loginButton">Login</button>
+                    <button value="login" type="button" id="loginButton" onclick="getUserLoginInput()">Login</button>
                 </form>
 
             </div>
@@ -38,121 +39,121 @@
         </div>
     </div>
 
-    <div class="main-container">
+    <div id="main-container">
         <div class="welcome-message">
             <h1>Willkommen auf der CO₂-Luftverschmutzung-Übersicht</h1>
         </div>
-            <div id="add-table">
-                <h2 id="table-name">Orte in Berlin/Brandenburg</h2>
-                <ul id="table">
-                    <li>Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
-                    <li>Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
-                    <li>Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
-                </ul>
-            </div>
-            <div id="map">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.6779779778494!2d13.410743176681166!3d52.521166572061446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1f44ecef09%3A0x94a698877167831!2sAlexanderpl.%201%2C%2010178%20Berlin!5e0!3m2!1sde!2sde!4v1698348288469!5m2!1sde!2sde"
+        <div id="add-table">
+            <h2 id="table-name">Orte in Berlin/Brandenburg</h2>
+            <ul id="table">
+                <li>Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
+                <li>Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
+                <li>Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
+            </ul>
+        </div>
+        <div id="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.6779779778494!2d13.410743176681166!3d52.521166572061446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1f44ecef09%3A0x94a698877167831!2sAlexanderpl.%201%2C%2010178%20Berlin!5e0!3m2!1sde!2sde!4v1698348288469!5m2!1sde!2sde"
                     width = "1300"
                     height="766"
                     style="border:0;"
                     allowfullscreen=""
                     loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+            </iframe>
+        </div>
+        <div class="mainButtons">
+            <button id="mainAddBtn">Add new Location</button>
+            <button class="logoutBtn">Logout</button>
+        </div>
+    </div>
+    <footer id="mainFooter">
+        <a id="Impressum" href="#">Impressum</a>
+        <a id="Datenschutzerklärung" href="#">Datenschutzerklärung</a>
+    </footer>
+</div>
+
+<div id="add-container">
+    <div class="add-window">
+
+        <h1 class="add-message">Add new location</h1>
+
+        <form id="addLocation" method="POST" name="formAdd">
+
+            <label for="name-add"><b>Name:*</b></label>
+            <input type="text" placeholder="" id="name-add" required value="">
+
+            <label for="description-add"><b>Description:</b></label>
+            <input type="text" placeholder="" id="description-add" value="">
+
+            <label for="address-add"><b>Address:*</b></label>
+            <input type="text" placeholder="" id="address-add" required value="">
+
+            <label for="postCode-add"><b>Postcode:*</b></label>
+            <input type="text" placeholder="" id="postCode-add" required value="">
+
+            <label for="city-add"><b>City:</b></label>
+            <select name="cityLocation" id="city-add">
+                <option value="">Berlin</option>
+                <option value="">Brandenburg</option>
+            </select>
+
+            <label for="lat-add"><b>Lat:</b></label>
+            <input type="number" placeholder="" id="lat-add" value="">
+
+            <label for="lon-add"><b>Lon:</b></label>
+            <input type="number" placeholder="" id="lon-add" value="">
+
+            <p class="requiredField">*: Fields are required!</p>
+
+            <div id="addButtonContainer">
+                <button value="add" type="submit" id="addLocationButton">Save</button>
+                <button value="cancel" type="button" id="addCancelButton">Cancel</button>
             </div>
-            <div class="mainButtons">
-                <button class="mainAddBtn">Add new Location</button>
-                <button class="logoutBtn">Logout</button>
+        </form>
+    </div>
+</div>
+
+<div id="du-container">
+    <div class="du-window">
+
+        <h1 class="du-message">Delete/Update location</h1>
+
+        <form id="duLocation" method="post" name="forDU">
+
+            <label for="name-du"><b>Name:</b></label>
+            <input type="text" id="name-du" value="Edeka">
+
+            <label for="description-du"><b>Description:</b></label>
+            <input type="text" id="description-du" value="Lebensmittelgeschäft">
+
+            <label for="address-du"><b>Address:</b></label>
+            <input type="text" id="address-du" value="Friedrichstraße 27">
+
+            <label for="postCode-du"><b>Postcode:</b></label>
+            <input type="text" id="postCode-du" value="10117">
+
+            <label for="city-du"><b>City:</b></label>
+            <select name="city-du" id="city-du">
+                <option value="">Berlin</option>
+                <option value="">Brandenburg</option>
+            </select>
+
+            <label for="lat-du"><b>Lat:</b></label>
+            <input type="number" id="lat-du" value="52.52028288709338">
+
+            <label for="lon-du"><b>Lon:</b></label>
+            <input type="number" id="lon-du" value="13.38685286856809">
+
+            <p class="requiredField">*: Fields are required!</p>
+
+            <div id="duButtonContainer">
+                <button value="update" id="duUpdateBtn">Update</button>
+                <button value="delete" id="duDeleteBtn">Delete</button>
+                <button value="cancel" id="duCancelBtn">Cancel</button>
             </div>
-        </div>
-        <footer id="mainFooter">
-            <a id="Impressum" href="#">Impressum</a>
-            <a id="Datenschutzerklärung" href="#">Datenschutzerklärung</a>
-        </footer>
+
+        </form>
     </div>
-
-    <div class="add-container">
-        <div class="add-window">
-
-            <h1 class="add-message">Add new location</h1>
-
-            <form id="addLocation" method="POST" name="formAdd">
-
-                <label for="name-add"><b>Name:*</b></label>
-                <input type="text" placeholder="" id="name-add" required value="">
-
-                <label for="description-add"><b>Description:</b></label>
-                <input type="text" placeholder="" id="description-add" value="">
-
-                <label for="address-add"><b>Address:*</b></label>
-                <input type="text" placeholder="" id="address-add" required value="">
-
-                <label for="postCode-add"><b>Postcode:*</b></label>
-                <input type="text" placeholder="" id="postCode-add" required value="">
-
-                <label for="city-add"><b>City:</b></label>
-                <select name="cityLocation" id="city-add">
-                    <option value="">Berlin</option>
-                    <option value="">Brandenburg</option>
-                </select>
-
-                <label for="lat-add"><b>Lat:</b></label>
-                <input type="number" placeholder="" id="lat-add" value="">
-
-                <label for="lon-add"><b>Lon:</b></label>
-                <input type="number" placeholder="" id="lon-add" value="">
-
-                <p class="requiredField">*: Fields are required!</p>
-
-                <div id="addButtonContainer">
-                    <button value="add" type="submit" id="addLocationButton">Save</button>
-                    <button value="cancel" type="button" id="addCancelButton">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="du-container">
-        <div class="du-window">
-
-            <h1 class="du-message">Delete/Update location</h1>
-
-            <form id="duLocation" method="post" name="forDU">
-
-                <label for="name-du"><b>Name:</b></label>
-                <input type="text" id="name-du" value="Edeka">
-
-                <label for="description-du"><b>Description:</b></label>
-                <input type="text" id="description-du" value="Lebensmittelgeschäft">
-
-                <label for="address-du"><b>Address:</b></label>
-                <input type="text" id="address-du" value="Friedrichstraße 27">
-
-                <label for="postCode-du"><b>Postcode:</b></label>
-                <input type="text" id="postCode-du" value="10117">
-
-                <label for="city-du"><b>City:</b></label>
-                <select name="city-du" id="city-du">
-                    <option value="">Berlin</option>
-                    <option value="">Brandenburg</option>
-                </select>
-
-                <label for="lat-du"><b>Lat:</b></label>
-                <input type="number" id="lat-du" value="52.52028288709338">
-
-                <label for="lon-du"><b>Lon:</b></label>
-                <input type="number" id="lon-du" value="13.38685286856809">
-
-                <p class="requiredField">*: Fields are required!</p>
-
-                <div id="duButtonContainer">
-                    <button value="update" id="duUpdateBtn">Update</button>
-                    <button value="delete" id="duDeleteBtn">Delete</button>
-                    <button value="cancel" id="duCancelBtn">Cancel</button>
-                </div>
-
-            </form>
-        </div>
-    </div>
+</div>
 </body>
 </html>
