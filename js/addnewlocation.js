@@ -1,10 +1,11 @@
-function newLocation(){
-    document.getElementById('web-name').style.display = 'none';
-    document.getElementById('login-container').style.display = 'none';
+function newLocationAdd(){
     document.getElementById('main-container').style.display = 'none';
     document.getElementById('add-container').style.display = 'grid';
-    document.getElementByClassName('mainButtons').style.display = 'flex';
-    document.getElementById('du-container').style.display = 'none';
+}
+
+function fromAddToMain(){
+    document.getElementById('add-container').style.display = 'none';
+    document.getElementById('main-container').style.display = 'grid';
 }
 
 //The data, which we get from the user
