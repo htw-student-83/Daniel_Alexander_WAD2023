@@ -4,6 +4,22 @@ function setAllNoneButLogin(){
     document.getElementById('du-container').style.display = 'none';
 }
 
+
+ //User data as objects
+let admin = {
+    username: "admina",
+    passwordAdmin: "password_A",
+    role: "admin"
+};
+
+let guest = {
+    username: "normalo",
+    passwordGuest: "password_G",
+    role: "non-admin"
+};
+
+let currentLoggedUser = false;
+
 //The data, which we get from the user
 function getUserLoginInput(){
     let inputUsername = document.getElementById('username-login').value;
@@ -14,17 +30,12 @@ function getUserLoginInput(){
 
 //The data from the user will check for a successfully login
 function loginCheck(inputUsername, inputPassword){
-    //the data for an successfully access
-    const admin = "admina"
-    const guest = "normalo"
-    const passwordAdmin = "password_A"
-    const passwordGuest = "password_G"
-
-    if(inputUsername && inputPassword){
-        if(inputUsername === admin && inputPassword === passwordAdmin){
+      if(inputUsername && inputPassword){
+        if(inputUsername === admin.username && inputPassword === admin.passwordAdmin){
             //The login is non visible
             //show the mainscreeen with all options.
             //Thema Visibility nach schauen
+            currentLoggedUser = true;
             document.getElementById('login-container').style.display = 'none';
             document.getElementById('main-container').style.display = 'grid';
             document.getElementById('web-name').style.display = 'none';
@@ -35,7 +46,8 @@ function loginCheck(inputUsername, inputPassword){
             return true;
         }
 
-        if(inputUsername === guest && inputPassword === passwordGuest){
+        if(inputUsername === guest.username && inputPassword === guest.passwordGuest){
+            currentLoggedUser = true;
             //show the mainscreeen with only the logout option
             document.getElementById('web-name').style.display = 'none';
             document.getElementById('login-container').style.display = 'none';

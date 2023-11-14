@@ -22,8 +22,7 @@ function getNewLocationData(){
     }
     let inputLat = document.getElementById('lat-add').value;
     let inputLon = document.getElementById('lon-add').value;
-
-    if(!inputLocationName == "" || !inputDescribing == "" || !inputAdress == ""){
+    if(inputLocationName || inputAdress.length || inputPC){
         newListItem(inputLocationName, inputDescribing, inputAdress, inputPC, inputCityName, inputLat, inputLon);
     }else{
          alert("The fields with * are required.")
@@ -31,16 +30,24 @@ function getNewLocationData(){
 }
 
 function newListItem(inputLocationName, inputDescribing, inputAdress, inputPC, inputCityName, inputLat, inputLon){
-     var li = document.createElement("li");
-     li.appendChild(document.createTextNode(inputLocationName + ', '
-                                             + inputDescribing + ', '
-                                             + inputAdress +', '
-                                             + inputPC + ', '
-                                             + inputCityName + ', '
-                                             + inputLat + ', '
-                                             + inputLon) + ', ');
-     document.getElementById('table')appendChild(li);
-
+    var li = document.createElement("li");
+    // + ', '+ inputAdress +', '+ inputPC + ', '+ inputCityName + ', ' + inputLat + ', '+ inputLon
+     li.appendChild(document.createTextNode(inputLocationName+ ', ' + inputDescribing+ ', '+ inputAdress +', '+ inputPC + ', '+ inputCityName + ', ' + inputLat + ', '+ inputLon ));
+     document.getElementById('table').appendChild(li);
+     document.getElementById('add-container').style.display = 'none';
+     document.getElementById('main-container').style.display = 'grid';
+     makeAddFormClear();
 }
 
+
+
+function makeAddFormClear(){
+    document.getElementById('name-add').value = "";
+    document.getElementById('description-add').value = "";
+    document.getElementById('address-add').value = "";
+    document.getElementById('postCode-add').value = "";
+    inputCityName = "";
+    document.getElementById('lat-add').value = "";
+    document.getElementById('lon-add').value = "";
+}
 
