@@ -31,7 +31,7 @@ function getNewLocationData(e){
         // Use OpenCage Geocoding API to get latitude and longitude
         let apiKey = '12761e8e169943a3963d765072b0cc34';
         let geocodingUrl =
-            `https://api.opencagedata.com/geocode/v1/json?q=
+            `https://api.opencagedata.com/geocode/v1/json?countrycode=de&q=
             ${encodeURIComponent(inputAddress)},
             ${encodeURIComponent(inputPostCode)},
             ${encodeURIComponent(inputCityName)}
@@ -40,17 +40,33 @@ function getNewLocationData(e){
         fetch(geocodingUrl)
             .then(response => response.json())
             .then(data => {
-                if (data.results && data.results.length > 0) {
-                    let inputLat = data.results[0].geometry.lat;
-                    let inputLon = data.results[0].geometry.lng;
+                let highestConfidenceResult = getHighestConfidenceResult(data.results, 10);
+
+                if (highestConfidenceResult) {
+                    let inputLat = highestConfidenceResult.geometry.lat;
+                    let inputLon = highestConfidenceResult.geometry.lng;
                     newListItem(inputLocationName, inputDescription, inputAddress,
                                 inputPostCode, inputCityName, inputLat, inputLon);
                 } else {
-                    console.error('Geocoding failed. Unable to find coordinates for the provided address.');
+                    alert('Invalid or ambiguous address. Please provide a more specific address.');
                 }
             })
             .catch(error => console.error('Error during geocoding:', error));
     }
+}
+
+function getHighestConfidenceResult(results, confidenceThreshold) {
+    let highestConfidenceResult = null;
+    let maxConfidence = confidenceThreshold;
+
+    for (let result of results) {
+        if (result.confidence === maxConfidence) {
+            maxConfidence = result.confidence;
+            highestConfidenceResult = result;
+        }
+    }
+
+    return highestConfidenceResult;
 }
 
 function hasStreetAndNumber(address) {
