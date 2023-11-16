@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/login.js"></script>
     <script src="../js/logout.js"></script>
-    <script src="../js/addNewLocation.js"></script>
     <script src="../js/duLocation.js"></script>
     <title>Klimaneutrale Luft in Berlin/Brandenburg</title>
 </head>
@@ -55,6 +55,7 @@
                 </ul>
             </div>
             <div id="map">
+                <!---
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.6779779778494!2d13.410743176681166!3d52.521166572061446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1f44ecef09%3A0x94a698877167831!2sAlexanderpl.%201%2C%2010178%20Berlin!5e0!3m2!1sde!2sde!4v1698348288469!5m2!1sde!2sde"
                         width = "1300"
                         height="766"
@@ -63,6 +64,7 @@
                         loading="lazy"
                         referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
+                -->
             </div>
             <div id="mainButtons">
                 <button id="mainAddBtn" onclick="newLocationAdd()">Add new Location</button>
@@ -159,6 +161,7 @@
             <a id="Datenschutzerklärung" href="#">Datenschutzerklärung</a>
         </footer>
     </div>
-
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="../js/addNewLocation.js"></script>
 </body>
 </html>

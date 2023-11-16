@@ -1,3 +1,11 @@
+// Initialize Leaflet map
+let map = L.map('map').setView([52.52150585, 13.412380949017187], 15);
+// Initial coordinates for Alexanderplatz 1, 10178 Berlin
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+}).addTo(map);
+
 function newLocationAdd(){
     document.getElementById('main-container').style.display = 'none';
     document.getElementById('add-container').style.display = 'grid';
@@ -31,12 +39,23 @@ function getNewLocationData(){
 
 function newListItem(inputLocationName, inputDescribing, inputAdress, inputPC, inputCityName, inputLat, inputLon){
     var li = document.createElement("li");
-    // + ', '+ inputAdress +', '+ inputPC + ', '+ inputCityName + ', ' + inputLat + ', '+ inputLon
-     li.appendChild(document.createTextNode(inputLocationName+ ', ' + inputDescribing+ ', '+ inputAdress +', '+ inputPC + ', '+ inputCityName + ', ' + inputLat + ', '+ inputLon ));
-     document.getElementById('table').appendChild(li);
-     document.getElementById('add-container').style.display = 'none';
-     document.getElementById('main-container').style.display = 'grid';
-     makeAddFormClear();
+    li.appendChild(document.createTextNode(inputLocationName+ ', ' + inputDescribing+ ', '+ inputAdress +', '+ inputPC + ', '+ inputCityName + ', ' + inputLat + ', '+ inputLon ));
+    //li.textContent = name;
+    //li.textContent = inputLocationName;
+    //li.setAttribute('Describing', inputDescribing);
+    //li.setAttribute('Address', inputAdress);
+    //li.setAttribute('Postcode', inputPC);
+    //li.setAttribute('CityName', inputCityName);
+    //li.setAttribute('data-lat', inputLat);
+    //li.setAttribute('data-lon', inputLon);
+    document.getElementById('table').appendChild(li);
+    document.getElementById('add-container').style.display = 'none';
+    document.getElementById('main-container').style.display = 'grid';
+    makeAddFormClear();
+    // Add a marker to the map
+    let marker = L.marker([inputLat, inputLon]).addTo(map);
+    marker.bindPopup(inputLocationName);
+
 }
 
 
