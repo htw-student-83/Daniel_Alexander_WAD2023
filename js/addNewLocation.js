@@ -7,40 +7,36 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 
+document.getElementById("formAdd").onsubmit = getNewLocationData;
 
 //The data, which we get from the user
-function getNewLocationData(){
-    let inputCityName = "";
+function getNewLocationData(e){
+    e.preventDefault()
     let inputLocationName = document.getElementById('name-add').value;
-    let inputDescribing = document.getElementById('description-add').value;
-    let inputAdress = document.getElementById('address-add').value;
-    let inputPC = document.getElementById('postCode-add').value;
-    if(document.getElementById('Berlin').value !=="Berlin"){
-        inputCityName = document.getElementById('Berlin').value;
-    }else{
-        inputCityName = document.getElementById('Brandenburg').value;
-    }
+    let inputDescription = document.getElementById('description-add').value;
+    let inputAddress = document.getElementById('address-add').value;
+    let inputPostCode = document.getElementById('postCode-add').value;
+    let inputCityName = document.getElementById('city-add').value;
     let inputLat = document.getElementById('lat-add').value;
     let inputLon = document.getElementById('lon-add').value;
-    if(inputLocationName || inputAdress.length || inputPC){
-        newListItem(inputLocationName, inputDescribing, inputAdress, inputPC, inputCityName, inputLat, inputLon);
-    }else{
-         alert("The fields with * are required.")
-    }
+    newListItem(inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName, inputLat, inputLon);
 }
 
-function newListItem(inputLocationName, inputDescribing, inputAdress, inputPC, inputCityName, inputLat, inputLon){
-    var li = document.createElement("li");
-    li.appendChild(document.createTextNode(inputLocationName+ ', ' + inputDescribing+ ', '+ inputAdress +', '+ inputPC + ', '+ inputCityName + ', ' + inputLat + ', '+ inputLon ));
-    //li.textContent = name;
-    //li.textContent = inputLocationName;
-    //li.setAttribute('Describing', inputDescribing);
-    //li.setAttribute('Address', inputAdress);
-    //li.setAttribute('Postcode', inputPC);
-    //li.setAttribute('CityName', inputCityName);
-    //li.setAttribute('data-lat', inputLat);
-    //li.setAttribute('data-lon', inputLon);
-    document.getElementById('table').appendChild(li);
+function newListItem(inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon){
+    let addressListItem = document.createElement("li");
+
+    // Create an array to hold non-empty values
+    let addressValues = [inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon];
+
+    // Filter out empty values
+    let nonEmptyValues = addressValues.filter(value => value.trim() !== '');
+
+    // Join non-empty values with commas
+    let listItemText = nonEmptyValues.join(', ');
+
+    addressListItem.appendChild(document.createTextNode(listItemText));
+
+    document.getElementById('address-list').appendChild(addressListItem);
     fromAddToMain();
     makeAddFormClear();
     // Add a marker to the map
