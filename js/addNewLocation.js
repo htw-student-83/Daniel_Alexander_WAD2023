@@ -6,15 +6,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-function newLocationAdd(){
-    document.getElementById('main-container').style.display = 'none';
-    document.getElementById('add-container').style.display = 'grid';
-}
 
-function fromAddToMain(){
-    document.getElementById('add-container').style.display = 'none';
-    document.getElementById('main-container').style.display = 'grid';
-}
 
 //The data, which we get from the user
 function getNewLocationData(){
@@ -49,8 +41,7 @@ function newListItem(inputLocationName, inputDescribing, inputAdress, inputPC, i
     //li.setAttribute('data-lat', inputLat);
     //li.setAttribute('data-lon', inputLon);
     document.getElementById('table').appendChild(li);
-    document.getElementById('add-container').style.display = 'none';
-    document.getElementById('main-container').style.display = 'grid';
+    fromAddToMain();
     makeAddFormClear();
     // Add a marker to the map
     let marker = L.marker([inputLat, inputLon]).addTo(map);

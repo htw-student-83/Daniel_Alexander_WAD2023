@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/login.js"></script>
-    <script src="../js/logout.js"></script>
-    <script src="../js/duLocation.js"></script>
     <title>Klimaneutrale Luft in Berlin/Brandenburg</title>
 </head>
-<body onload="setAllNoneButLogin()">
+<body>
     <div class="container">
 
         <header id="web-name">
@@ -24,7 +21,7 @@
 
                     <h2 class="login-message">Login</h2>
 
-                    <form id="formLogin" method="GET" name="formLogin" onsubmit="return false">
+                    <form id="formLogin" method="GET" name="formLogin">
 
                         <label for="username-login"><b>Username:*</b></label>
                         <input type="text" placeholder="Max Mustermann" id="username-login" required value="" autofocus>
@@ -34,7 +31,7 @@
 
                         <p class="requiredField">*: Fields are required!</p>
 
-                        <button value="login" type="submit" id="loginButton" onclick="getUserLoginInput()">Login</button>
+                        <button value="login" type="submit" id="loginButton">Login</button>
                     </form>
 
                 </div>
@@ -49,26 +46,19 @@
             <div id="add-table">
                 <h2 id="table-name">Orte in Berlin/Brandenburg</h2>
                 <ul id="table">
-                    <li onclick="locationDU()">Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
-                    <li onclick="locationDU()">Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
-                    <li onclick="locationDU()">Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
+                    <li onclick="fromMainToDU()">Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
+                    <li onclick="fromMainToDU()">Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
+                    <li onclick="fromMainToDU()">Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
                 </ul>
             </div>
             <div id="map">
                 <!---
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2427.6779779778494!2d13.410743176681166!3d52.521166572061446!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e1f44ecef09%3A0x94a698877167831!2sAlexanderpl.%201%2C%2010178%20Berlin!5e0!3m2!1sde!2sde!4v1698348288469!5m2!1sde!2sde"
-                        width = "1300"
-                        height="766"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
+                Leaflet Map
                 -->
             </div>
             <div id="mainButtons">
-                <button id="mainAddBtn" onclick="newLocationAdd()">Add new Location</button>
-                <button id="logoutBtn" onclick="goToLogin()">Logout</button>
+                <button value="mainAddBtn" type="button" id="mainAddBtn">Add new Location</button>
+                <button value="logout" type="button" id="logoutBtn">Logout</button>
             </div>
         </div>
 
@@ -98,16 +88,16 @@
                     </select>
 
                     <label for="lat-add"><b>Lat:</b></label>
-                    <input type="number" placeholder="" id="lat-add" value="">
+                    <input type="number" placeholder="" id="lat-add">
 
                     <label for="lon-add"><b>Lon:</b></label>
-                    <input type="number" placeholder="" id="lon-add" value="">
+                    <input type="number" placeholder="" id="lon-add">
 
                     <p class="requiredField">*: Fields are required!</p>
 
                     <div id="addButtonContainer">
                         <button value="add" type="button" id="addLocationButton" onclick="getNewLocationData()">Save</button>
-                        <button value="cancel" type="button" id="addCancelButton" onclick="fromAddToMain()">Cancel</button>
+                        <button value="cancel" type="button" id="addCancelButton">Cancel</button>
                     </div>
                 </form>
             </div>
@@ -149,7 +139,7 @@
                     <div id="duButtonContainer">
                         <button value="update" type="button" id="duUpdateBtn">Update</button>
                         <button value="delete" type="button" id="duDeleteBtn">Delete</button>
-                        <button value="cancel" type="button" id="duCancelBtn" onclick="fromDUToMain()">Cancel</button>
+                        <button value="cancel" type="button" id="duCancelBtn">Cancel</button>
                     </div>
 
                 </form>
@@ -162,6 +152,10 @@
         </footer>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/logout.js"></script>
+    <script src="../js/duLocation.js"></script>
     <script src="../js/addNewLocation.js"></script>
+    <script src="../js/displaySetter.js"></script>
 </body>
 </html>
