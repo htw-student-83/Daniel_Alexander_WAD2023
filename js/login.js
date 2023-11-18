@@ -1,3 +1,5 @@
+let counterForWrongLogged = 3;
+
  //User data as objects
 let admin = {
     username: "admina",
@@ -44,8 +46,23 @@ function loginCheck(inputUsername, inputPassword){
             document.getElementById('userName').innerHTML = ", " + inputUsername;
             return true;
         }else{
-            alert('Dear User, your input is invalid.');
+            lock()
             return false;
         }
+    }
+}
+
+ //to lock the user
+function lock(){
+    counterForWrongLogged--;
+    if(counterForWrongLogged !== 0){
+        alert('Dear User, your input is invalid.\n' + 'You have only ' + counterForWrongLogged + ' attempts left.');
+    }else{
+       document.getElementById('loginButton').style.backgroundColor = 'lightgrey';
+       document.getElementById('loginButton').disabled = true;
+       const btn = document.getElementById('loginButton');
+       btn.style.pointerEvents = 'none';
+       alert('Dear User, your number of attempts is achieved.\n' +
+        'Your locked for the next time.');
     }
 }
