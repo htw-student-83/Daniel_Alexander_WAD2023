@@ -6,6 +6,21 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
+function addDefaultLocation(){
+    let defaultLocations = [alexanderplatz, unterDenLinden, koeniginElisabethStrasse]
+    for (let location of defaultLocations) {
+        newListItem(
+            location.Name,
+            location.Description,
+            location.Address,
+            location.Postcode,
+            location.City,
+            location.Lat,
+            location.Lon
+        );
+    }
+}
+
 document.getElementById("formAdd").onsubmit = getNewLocationData;
 
 //The data, which we get from the user
@@ -55,6 +70,24 @@ function getNewLocationData(e){
     }
 }
 
+function newListItem(inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon){
+    let addressListItem = document.createElement("li");
+    let addressValues = [inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon];
+    let nonEmptyValues = addressValues.filter(value => typeof value === 'string' && value.trim() !== '');
+    let listItemText = nonEmptyValues.join(', ');
+    addressListItem.appendChild(document.createTextNode(listItemText));
+    document.getElementById('address-list').appendChild(addressListItem);
+
+    if(document.getElementById("add-container").style.display === "grid"){
+        fromAddToMain();
+        clearAddForm();
+    }
+
+    // Add a marker to the map
+    let marker = L.marker([inputLat, inputLon]).addTo(map);
+    marker.bindPopup(inputLocationName);
+}
+
 function getHighestConfidenceResult(results, confidenceThreshold) {
     let highestConfidenceResult = null;
     let maxConfidence = confidenceThreshold;
@@ -71,21 +104,6 @@ function getHighestConfidenceResult(results, confidenceThreshold) {
 
 function hasStreetAndNumber(address) {
     return /\s\d/.test(address) || /-\d/.test(address);
-}
-
-function newListItem(inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon){
-    let addressListItem = document.createElement("li");
-    let addressValues = [inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon];
-    let nonEmptyValues = addressValues.filter(value => typeof value === 'string' && value.trim() !== '');
-    let listItemText = nonEmptyValues.join(', ');
-    addressListItem.appendChild(document.createTextNode(listItemText));
-    document.getElementById('address-list').appendChild(addressListItem);
-    fromAddToMain();
-    clearAddForm();
-
-    // Add a marker to the map
-    let marker = L.marker([inputLat, inputLon]).addTo(map);
-    marker.bindPopup(inputLocationName);
 }
 
 function clearAddForm(){

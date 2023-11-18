@@ -46,9 +46,11 @@
             <div id="address-table">
                 <h2 id="table-name">Orte in Berlin/Brandenburg</h2>
                 <ul id="address-list">
+                    <!---
                     <li onclick="fromMainToDU()">Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
                     <li onclick="fromMainToDU()">Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
                     <li onclick="fromMainToDU()">Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
+                    -->
                 </ul>
             </div>
             <div id="map">
@@ -96,7 +98,7 @@
                     <p class="requiredField">*: Fields are required!</p>
 
                     <div id="addButtonContainer">
-                        <button value="add" type="submit" id="addLocationButton" onsubmit="getNewLocationData()">Save</button>
+                        <button value="add" type="submit" id="addLocationButton">Save</button>
                         <button value="cancel" type="button" id="addCancelButton">Cancel</button>
                     </div>
                 </form>
@@ -157,5 +159,6 @@
     <script src="../js/duLocation.js"></script>
     <script src="../js/addNewLocation.js"></script>
     <script src="../js/displaySetter.js"></script>
+    <script src="../js/currentLocationsOfBerlin.js"></script>
 </body>
 </html>

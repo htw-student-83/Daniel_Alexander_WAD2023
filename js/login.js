@@ -16,6 +16,7 @@ let adminIsLoggedIn;
 
 const eventHandlerLogin = function () {
     setAllNoneButLogin();
+    addDefaultLocation();
     document.getElementById("formLogin").onsubmit = getUserLoginInput;
 }
 
@@ -27,7 +28,7 @@ function getUserLoginInput(e){
     loginCheck(inputUsername, inputPassword)
 }
 
-//The data from the user will check for a successfully login
+//The data from the user will check for a successful login
 function loginCheck(inputUsername, inputPassword){
       if(inputUsername && inputPassword){
         if(inputUsername === guest.username && inputPassword === guest.passwordGuest){
