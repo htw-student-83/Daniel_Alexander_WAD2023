@@ -1,7 +1,7 @@
  //User data as objects
 let admin = {
     username: "admina",
-    passwordAdmin: "password_A",
+    passwordAdmin: "a",
     role: "admin"
 };
 
@@ -45,7 +45,7 @@ function loginCheck(inputUsername, inputPassword){
             document.getElementById('userName').innerHTML = ", " + inputUsername;
             return true;
         }else{
-            alert('Dear User, your input is invalid.');
+            alert('Invalid username or password. Please try again.');
             return false;
         }
     }

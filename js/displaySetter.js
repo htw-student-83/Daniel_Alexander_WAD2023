@@ -78,9 +78,12 @@ function fromAddToMain(){
     setDisplayAdd(false);
 }
 
-function fromMainToDU(){
+document.getElementById("address-list").onclick = fromMainToDU;
+
+function fromMainToDU(e){
     setDisplayMain(false);
     setDisplayDU(true);
+    fillDUForm(e.target.dataset.id);
 }
 
 document.getElementById("duCancelBtn").onclick = fromDUToMain;

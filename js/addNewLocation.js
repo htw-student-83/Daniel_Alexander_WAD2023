@@ -6,9 +6,19 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
+function updateMapMarkers(locations) {
+    // Add markers for each location
+    Object.values(locations).forEach(location => {
+        let marker = L.marker([location.Lat, location.Lon], { objectID: location.ID }).addTo(map);
+        marker.bindPopup(location.Name);
+        markers[location.ID] = marker;
+    });
+}
+
 function addDefaultLocation(){
-    let defaultLocations = [alexanderplatz, unterDenLinden, koeniginElisabethStrasse]
-    for (let location of defaultLocations) {
+
+    // Add markers for each location
+    Object.values(listOfAllDefaultLocations).forEach(location => {
         newListItem(
             location.Name,
             location.Description,
@@ -18,7 +28,7 @@ function addDefaultLocation(){
             location.Lat,
             location.Lon
         );
-    }
+    });
 }
 
 document.getElementById("formAdd").onsubmit = getNewLocationData;
@@ -70,22 +80,43 @@ function getNewLocationData(e){
     }
 }
 
+let markers = [];
+let listOfAllLocations = {};
+
 function newListItem(inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon){
-    let addressListItem = document.createElement("li");
-    let addressValues = [inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon];
-    let nonEmptyValues = addressValues.filter(value => typeof value === 'string' && value.trim() !== '');
+    let addressObject =
+        {
+            Name: inputLocationName,
+            Description: inputDescription,
+            Address: inputAddress,
+            Postcode: inputPC,
+            City: inputCityName,
+            Lat: inputLat,
+            Lon: inputLon,
+            ID: generateUniqueId()
+        };
+
+    listOfAllLocations[addressObject.ID] = addressObject;
+
+    let nonEmptyValues = Object.values(addressObject).filter(value => typeof value === 'string' && value.trim() !== '');
     let listItemText = nonEmptyValues.join(', ');
+    let addressListItem = document.createElement("li");
+    addressListItem.setAttribute('data-id', addressObject.ID.toString());
     addressListItem.appendChild(document.createTextNode(listItemText));
     document.getElementById('address-list').appendChild(addressListItem);
+
+    updateMapMarkers(listOfAllLocations);
 
     if(document.getElementById("add-container").style.display === "grid"){
         fromAddToMain();
         clearAddForm();
     }
 
-    // Add a marker to the map
-    let marker = L.marker([inputLat, inputLon]).addTo(map);
-    marker.bindPopup(inputLocationName);
+    console.log(listOfAllLocations)
+}
+
+function generateUniqueId() {
+    return '_' + Math.random().toString(36).substring(2, 11);
 }
 
 function getHighestConfidenceResult(results, confidenceThreshold) {
@@ -114,4 +145,3 @@ function clearAddForm(){
     document.getElementById('lat-add').value = "";
     document.getElementById('lon-add').value = "";
 }
-
