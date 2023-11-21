@@ -3,7 +3,7 @@ let counterForWrongLogged = 3;
  //User data as objects
 let admin = {
     username: "admina",
-    passwordAdmin: "password_A",
+    passwordAdmin: "a",
     role: "admin"
 };
 
@@ -18,6 +18,7 @@ let adminIsLoggedIn;
 
 const eventHandlerLogin = function () {
     setAllNoneButLogin();
+    addDefaultLocation();
     document.getElementById("formLogin").onsubmit = getUserLoginInput;
 }
 
