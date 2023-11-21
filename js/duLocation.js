@@ -11,32 +11,19 @@ function fillDUForm(objectID){
     document.getElementById("formDU").addEventListener("submit", function(){ deleteLocation(objectID); });
 }
 
-//document.getElementById("formDU").onclick = deleteLocation;
+function deleteLocation(locationId) {
+    // Assuming locationId corresponds to the ID property in the location object
+    if (markers[locationId]) {
+        map.removeLayer(markers[locationId]);
+        delete markers[locationId];
+        delete listOfAllLocations[locationId];
 
-function deleteLocation(objectID) {
-    console.log(listOfAllLocations)
-    // Get the unique ID of the location
-    const locationID = listOfAllLocations[objectID].ID;
-
-    // Remove the location from listOfAllLocations
-    delete listOfAllLocations[objectID];
-
-    // Remove the corresponding list item from the UI
-    let listItemToRemove = document.querySelector(`[data-id="${objectID}"]`);
-    if (listItemToRemove) {
-        listItemToRemove.remove();
+        // Remove the corresponding list item
+        let listItem = document.querySelector(`[data-id="${locationId}"]`);
+        if (listItem) {
+            listItem.remove();
+        }
     }
-
-    // Remove the corresponding marker from the map
-    if (markers[locationID]) {
-        markers[locationID].remove();
-        delete markers[locationID];
-    }
-
-    updateMapMarkers(listOfAllLocations)
-
     // Return to the main view
     fromDUToMain();
-
-    console.log(listOfAllLocations)
 }

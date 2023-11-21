@@ -7,6 +7,12 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 function updateMapMarkers(locations) {
+    // Clear existing markers
+    Object.values(markers).forEach(marker => {
+        map.removeLayer(marker);
+    });
+    markers = {}; // Clear the markers object
+
     // Add markers for each location
     Object.values(locations).forEach(location => {
         let marker = L.marker([location.Lat, location.Lon], { objectID: location.ID }).addTo(map);
@@ -113,6 +119,7 @@ function newListItem(inputLocationName, inputDescription, inputAddress, inputPC,
     }
 
     console.log(listOfAllLocations)
+    console.log(markers)
 }
 
 function generateUniqueId() {
