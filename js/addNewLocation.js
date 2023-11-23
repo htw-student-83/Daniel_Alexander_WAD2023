@@ -139,7 +139,7 @@ function newListItem(inputLocationName, inputDescription, inputAddress, inputPC,
                 ID: locID
             };
     }
-    console.log("newListItem" + addressObject.Name)
+    console.log("newListItem: " + addressObject.Name)
     listOfAllLocations[addressObject.ID] = addressObject;
 
     let nonEmptyValues = Object.values(addressObject).filter(value => typeof value === 'string' && value.trim() !== '');
