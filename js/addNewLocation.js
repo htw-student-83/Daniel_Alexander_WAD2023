@@ -23,6 +23,7 @@ function updateMapMarkers(locations) {
 
 function addDefaultLocation(){
 
+    let formType = "add";
     // Add markers for each location
     Object.values(listOfAllDefaultLocations).forEach(location => {
         newListItem(
@@ -32,23 +33,40 @@ function addDefaultLocation(){
             location.Postcode,
             location.City,
             location.Lat,
-            location.Lon
+            location.Lon,
+            formType
         );
     });
 }
 
-document.getElementById("formAdd").onsubmit = getNewLocationData;
+document.getElementById("formAdd").onsubmit = function (e) {
+    getNewLocationData(e, "add");
+};
 
 //The data, which we get from the user
-function getNewLocationData(e){
+function getNewLocationData(e, formType, locationID){
     e.preventDefault()
-    let inputLocationName = document.getElementById('name-add').value;
-    let inputDescription = document.getElementById('description-add').value;
-    let inputAddress = document.getElementById('address-add').value;
-    let inputPostCode = document.getElementById('postCode-add').value;
-    let inputCityName = document.getElementById('city-add').value;
-    let inputLat = document.getElementById('lat-add').value;
-    let inputLon = document.getElementById('lon-add').value;
+    let inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName, inputLat, inputLon, ID;
+
+    if (formType === 'add') {
+        inputLocationName = document.getElementById('name-add').value;
+        inputDescription = document.getElementById('description-add').value;
+        inputAddress = document.getElementById('address-add').value;
+        inputPostCode = document.getElementById('postCode-add').value;
+        inputCityName = document.getElementById('city-add').value;
+        inputLat = document.getElementById('lat-add').value;
+        inputLon = document.getElementById('lon-add').value;
+    } else if (formType === 'update') {
+        inputLocationName = document.getElementById('name-du').value;
+        inputDescription = document.getElementById('description-du').value;
+        inputAddress = document.getElementById('address-du').value;
+        inputPostCode = document.getElementById('postCode-du').value;
+        inputCityName = document.getElementById('city-du').value;
+        inputLat = document.getElementById('lat-du').value;
+        inputLon = document.getElementById('lon-du').value;
+        ID = locationID;
+        console.log("getNewLocationData" + locationID)
+    }
 
     if (!hasStreetAndNumber(inputAddress)) {
         alert('Please make sure to include both the street name and number in the address field.');
@@ -57,7 +75,8 @@ function getNewLocationData(e){
 
     // Check if user provided latitude and longitude
     if (inputLat && inputLon) {
-        newListItem(inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName, inputLat, inputLon);
+        newListItem(inputLocationName, inputDescription, inputAddress,
+            inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
     } else {
         // Use OpenCage Geocoding API to get latitude and longitude
         let apiKey = '12761e8e169943a3963d765072b0cc34';
@@ -77,7 +96,7 @@ function getNewLocationData(e){
                     let inputLat = highestConfidenceResult.geometry.lat;
                     let inputLon = highestConfidenceResult.geometry.lng;
                     newListItem(inputLocationName, inputDescription, inputAddress,
-                                inputPostCode, inputCityName, inputLat, inputLon);
+                                inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
                 } else {
                     alert('Invalid or ambiguous address. Please provide a more specific address.');
                 }
@@ -89,19 +108,38 @@ function getNewLocationData(e){
 let markers = [];
 let listOfAllLocations = {};
 
-function newListItem(inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon){
-    let addressObject =
-        {
-            Name: inputLocationName,
-            Description: inputDescription,
-            Address: inputAddress,
-            Postcode: inputPC,
-            City: inputCityName,
-            Lat: inputLat,
-            Lon: inputLon,
-            ID: generateUniqueId()
-        };
+function newListItem(inputLocationName, inputDescription, inputAddress, inputPC, inputCityName, inputLat, inputLon, formType, locID){
+    let addressObject;
 
+    if(formType === "add"){
+        addressObject =
+            {
+                Name: inputLocationName,
+                Description: inputDescription,
+                Address: inputAddress,
+                Postcode: inputPC,
+                City: inputCityName,
+                Lat: inputLat,
+                Lon: inputLon,
+                ID: generateUniqueId()
+            };
+    }else if (formType === "update") {
+        // Create a deep copy of the existing object before modifying it
+        console.log("elseIf " + locID)
+        console.log(listOfAllLocations)
+        addressObject =
+            {
+                Name: inputLocationName,
+                Description: inputDescription,
+                Address: inputAddress,
+                Postcode: inputPC,
+                City: inputCityName,
+                Lat: inputLat,
+                Lon: inputLon,
+                ID: locID
+            };
+    }
+    console.log("newListItem" + addressObject.Name)
     listOfAllLocations[addressObject.ID] = addressObject;
 
     let nonEmptyValues = Object.values(addressObject).filter(value => typeof value === 'string' && value.trim() !== '');

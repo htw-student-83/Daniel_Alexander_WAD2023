@@ -8,8 +8,24 @@ function fillDUForm(objectID){
     document.getElementById("lon-du").value = listOfAllLocations[objectID].Lon;
 
     //EventListener delete and update
-    document.getElementById("formDU").addEventListener("submit", function(){ deleteLocation(objectID); });
-    document.getElementById("formDU").addEventListener("logoutBtn", function(){ updateLocation(objectID); });
+    // Remove existing submit event listener using a named function
+    document.getElementById("formDU").removeEventListener("submit", handleDUFormSubmission);
+
+    // Add a new submit event listener with a named function
+    document.getElementById("formDU").addEventListener("submit", function (e) {
+        handleDUFormSubmission(e, objectID);
+    });
+}
+
+function handleDUFormSubmission(e, objectID) {
+    // Prevent the default form submission
+    e.preventDefault();
+
+    if (e.submitter.id === "duDeleteBtn") {
+        deleteLocation(objectID);
+    } else if (e.submitter.id === "duUpdateBtn") {
+        updateLocation(e, objectID);
+    }
 }
 
 function deleteLocation(locationId) {
@@ -29,19 +45,8 @@ function deleteLocation(locationId) {
     fromDUToMain();
 }
 
-function updateLocation(locationId){
+function updateLocation(e, locationId){
+    console.log("updateLocation called for locationId:", locationId);
     deleteLocation(locationId);
-
-    let inputName = document.getElementById("name-du").value;
-    let inputDescription = document.getElementById("description-du").value; 
-    let inputAddresss = document.getElementById("address-du").value;
-    let inputPostcode = document.getElementById("postCode-du").value;
-    let inputCityname =  document.getElementById("city-du").value;
-    let inputLat = document.getElementById("lat-du").value;
-    let inputLon = document.getElementById("lon-du").value;
-
-    calculateGeocoordinates();
-
-    newListItem(inputName, inputDescription, inputAddresss,
-        inputPostcode, inputCityname, inputLat, inputLon);
+    getNewLocationData(e, "update", locationId);
 }
