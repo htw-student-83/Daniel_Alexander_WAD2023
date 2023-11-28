@@ -76,6 +76,7 @@ document.getElementById("addCancelButton").onclick = fromAddToMain;
 function fromAddToMain(){
     setDisplayMain(true);
     setDisplayAdd(false);
+    clearAddForm();
 }
 
 document.getElementById("address-list").onclick = fromMainToDU;

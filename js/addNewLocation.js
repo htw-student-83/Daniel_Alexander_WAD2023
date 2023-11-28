@@ -46,7 +46,7 @@ document.getElementById("formAdd").onsubmit = function (e) {
 //The data, which we get from the user
 function getNewLocationData(e, formType, locationID){
     e.preventDefault()
-    let inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName, inputLat, inputLon, ID;
+    let inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName, ID;
 
     if (formType === 'add') {
         inputLocationName = document.getElementById('name-add').value;
@@ -54,16 +54,12 @@ function getNewLocationData(e, formType, locationID){
         inputAddress = document.getElementById('address-add').value;
         inputPostCode = document.getElementById('postCode-add').value;
         inputCityName = document.getElementById('city-add').value;
-        inputLat = document.getElementById('lat-add').value;
-        inputLon = document.getElementById('lon-add').value;
     } else if (formType === 'update') {
         inputLocationName = document.getElementById('name-du').value;
         inputDescription = document.getElementById('description-du').value;
         inputAddress = document.getElementById('address-du').value;
         inputPostCode = document.getElementById('postCode-du').value;
         inputCityName = document.getElementById('city-du').value;
-        inputLat = document.getElementById('lat-du').value;
-        inputLon = document.getElementById('lon-du').value;
         ID = locationID;
         console.log("getNewLocationData" + locationID)
     }
@@ -74,35 +70,30 @@ function getNewLocationData(e, formType, locationID){
     }
 
     // Check if user provided latitude and longitude
-    if (inputLat && inputLon) {
-        newListItem(inputLocationName, inputDescription, inputAddress,
-            inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
-    } else {
-        // Use OpenCage Geocoding API to get latitude and longitude
-        let apiKey = '12761e8e169943a3963d765072b0cc34';
-        let geocodingUrl =
-            `https://api.opencagedata.com/geocode/v1/json?countrycode=de&q=
-            ${encodeURIComponent(inputAddress)},
-            ${encodeURIComponent(inputPostCode)},
-            ${encodeURIComponent(inputCityName)}
-            &key=${apiKey}`;
+    // Use OpenCage Geocoding API to get latitude and longitude
+    let apiKey = '12761e8e169943a3963d765072b0cc34';
+    let geocodingUrl =
+        `https://api.opencagedata.com/geocode/v1/json?countrycode=de&q=
+        ${encodeURIComponent(inputAddress)},
+        ${encodeURIComponent(inputPostCode)},
+        ${encodeURIComponent(inputCityName)}
+        &key=${apiKey}`;
 
-        fetch(geocodingUrl)
-            .then(response => response.json())
-            .then(data => {
-                let highestConfidenceResult = getHighestConfidenceResult(data.results, 10);
+    fetch(geocodingUrl)
+        .then(response => response.json())
+        .then(data => {
+            let highestConfidenceResult = getHighestConfidenceResult(data.results, 10);
 
-                if (highestConfidenceResult) {
-                    let inputLat = highestConfidenceResult.geometry.lat;
-                    let inputLon = highestConfidenceResult.geometry.lng;
-                    newListItem(inputLocationName, inputDescription, inputAddress,
-                                inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
-                } else {
-                    alert('Invalid or ambiguous address. Please provide a more specific address.');
-                }
-            })
-            .catch(error => console.error('Error during geocoding:', error));
-    }
+            if (highestConfidenceResult) {
+                let inputLat = highestConfidenceResult.geometry.lat;
+                let inputLon = highestConfidenceResult.geometry.lng;
+                newListItem(inputLocationName, inputDescription, inputAddress,
+                            inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
+            } else {
+                alert('Invalid or ambiguous address. Please provide a more specific address.');
+            }
+        })
+        .catch(error => console.error('Error during geocoding:', error));
 }
 
 let markers = [];
