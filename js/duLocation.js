@@ -63,6 +63,5 @@ function deleteLocation(locationId) {
 
 function updateLocation(e, locationId){
     console.log("updateLocation called for locationId: ", locationId);
-    deleteLocation(locationId);
     getNewLocationData(e, "update", locationId);
 }

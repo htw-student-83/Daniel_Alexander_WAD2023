@@ -74,9 +74,9 @@ function getNewLocationData(e, formType, locationID){
     let apiKey = '12761e8e169943a3963d765072b0cc34';
     let geocodingUrl =
         `https://api.opencagedata.com/geocode/v1/json?countrycode=de&q=
-        ${encodeURIComponent(inputAddress)},
         ${encodeURIComponent(inputPostCode)},
-        ${encodeURIComponent(inputCityName)}
+        ${encodeURIComponent(inputCityName)},
+        ${encodeURIComponent(inputAddress)}
         &key=${apiKey}`;
 
     fetch(geocodingUrl)
@@ -84,7 +84,10 @@ function getNewLocationData(e, formType, locationID){
         .then(data => {
             let highestConfidenceResult = getHighestConfidenceResult(data.results, 10);
 
-            if (highestConfidenceResult) {
+            if (highestConfidenceResult || inputAddress === data.results.components.road + " " + data.results.components.house_number) {
+                if(formType === "update"){
+                    deleteLocation(ID);
+                }
                 let inputLat = highestConfidenceResult.geometry.lat;
                 let inputLon = highestConfidenceResult.geometry.lng;
                 newListItem(inputLocationName, inputDescription, inputAddress,
@@ -93,7 +96,7 @@ function getNewLocationData(e, formType, locationID){
                 alert('Invalid or ambiguous address. Please provide a more specific address.');
             }
         })
-        .catch(error => console.error('Error during geocoding:', error));
+        .catch(error => console.error('Error during geocoding:', error))
 }
 
 let markers = [];
