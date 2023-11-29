@@ -140,8 +140,11 @@ function newListItem(inputLocationName, inputDescription, inputAddress, inputPC,
     console.log("newListItem: " + addressObject.Name)
     listOfAllLocations[addressObject.ID] = addressObject;
 
-    let nonEmptyValues = Object.values(addressObject).filter(value => typeof value === 'string' && value.trim() !== '');
-    let listItemText = nonEmptyValues.join(', ');
+    // Exclude the ID from the displayed information
+    let nonEmptyValues = Object.entries(addressObject)
+        .filter(([key, value]) => key !== 'ID' && typeof value === 'string' && value.trim() !== '')
+        .map(([key, value]) => value);    let listItemText = nonEmptyValues.join(', ');
+
     let addressListItem = document.createElement("li");
     addressListItem.setAttribute('data-id', addressObject.ID.toString());
     addressListItem.appendChild(document.createTextNode(listItemText));
