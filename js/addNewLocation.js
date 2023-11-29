@@ -69,34 +69,38 @@ function getNewLocationData(e, formType, locationID){
         return; // Prevent further execution of the function
     }
 
-    // Check if user provided latitude and longitude
-    // Use OpenCage Geocoding API to get latitude and longitude
-    let apiKey = '12761e8e169943a3963d765072b0cc34';
-    let geocodingUrl =
-        `https://api.opencagedata.com/geocode/v1/json?countrycode=de&q=
+    // Use Nominatim Geocoding API to get latitude and longitude
+    let nominatimUrl =
+        `https://nominatim.openstreetmap.org/search?format=json&countrycodes=de&q=
         ${encodeURIComponent(inputPostCode)},
         ${encodeURIComponent(inputCityName)},
-        ${encodeURIComponent(inputAddress)}
-        &key=${apiKey}`;
+        ${encodeURIComponent(inputAddress)}`;
 
-    fetch(geocodingUrl)
+    fetch(nominatimUrl)
         .then(response => response.json())
         .then(data => {
-            let highestConfidenceResult = getHighestConfidenceResult(data.results, 10);
+            if (data.length > 0) {
+                let highestRankResult = data[0];
 
-            if (highestConfidenceResult || inputAddress === data.results.components.road + " " + data.results.components.house_number) {
-                if(formType === "update"){
-                    deleteLocation(ID);
+                if (highestRankResult.place_rank === 30) {
+                    if (formType === "update") {
+                        deleteLocation(ID);
+                    }
+
+                    let inputLat = parseFloat(highestRankResult.lat);
+                    let inputLon = parseFloat(highestRankResult.lon);
+                    newListItem(inputLocationName, inputDescription, inputAddress,
+                        inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
+                } else {
+                    // Handle low place_rank, which may indicate an inaccurate or ambiguous result
+                    alert('Low place_rank. Please provide a more specific and accurate address.');
                 }
-                let inputLat = highestConfidenceResult.geometry.lat;
-                let inputLon = highestConfidenceResult.geometry.lng;
-                newListItem(inputLocationName, inputDescription, inputAddress,
-                            inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
             } else {
-                alert('Invalid or ambiguous address. Please provide a more specific address.');
+                // No result, handle accordingly
+                alert('Address not found. Please provide a more specific address.');
             }
         })
-        .catch(error => console.error('Error during geocoding:', error))
+        .catch(error => console.error('Error during geocoding:', error));
 }
 
 let markers = [];
@@ -156,20 +160,6 @@ function newListItem(inputLocationName, inputDescription, inputAddress, inputPC,
 
 function generateUniqueId() {
     return '_' + Math.random().toString(36).substring(2, 11);
-}
-
-function getHighestConfidenceResult(results, confidenceThreshold) {
-    let highestConfidenceResult = null;
-    let maxConfidence = confidenceThreshold;
-
-    for (let result of results) {
-        if (result.confidence === maxConfidence) {
-            maxConfidence = result.confidence;
-            highestConfidenceResult = result;
-        }
-    }
-
-    return highestConfidenceResult;
 }
 
 function hasStreetAndNumber(address) {
