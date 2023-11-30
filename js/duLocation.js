@@ -14,7 +14,6 @@ function fillDUForm(objectID){
         function handleFormSubmit(e) {
             e.preventDefault();
             const updatedObjectID = objectID;  // Capture the current objectID
-            console.log("fromDUEventListener: " + updatedObjectID);
             handleDUFormSubmission(e, updatedObjectID);
         }
 
@@ -35,7 +34,6 @@ function handleDUFormSubmission(e, objectID) {
 
     // Get the stored updatedObjectID or use the provided objectID
     const updatedObjectID = document.getElementById("formDU").updatedObjectID || objectID;
-    console.log("handleDUFormSubmission: " + updatedObjectID);
 
     if (e.submitter.id === "duDeleteBtn") {
         deleteLocation(updatedObjectID);
@@ -62,6 +60,5 @@ function deleteLocation(locationId) {
 }
 
 function updateLocation(e, locationId){
-    console.log("updateLocation called for locationId: ", locationId);
     getNewLocationData(e, "update", locationId);
 }

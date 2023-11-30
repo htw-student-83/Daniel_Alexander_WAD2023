@@ -61,7 +61,6 @@ function getNewLocationData(e, formType, locationID){
         inputPostCode = document.getElementById('postCode-du').value;
         inputCityName = document.getElementById('city-du').value;
         ID = locationID;
-        console.log("getNewLocationData" + locationID)
     }
 
     if (!hasStreetAndNumber(inputAddress)) {
@@ -76,7 +75,7 @@ function getNewLocationData(e, formType, locationID){
 function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName, formType, ID){
     // Use Nominatim Geocoding API to get latitude and longitude
     let nominatimUrl =
-        `https://nominatim.openstreetmap.org/search?format=json&countrycodes=de&q=
+        `https://nominatim.openstreetmap.org/search?addressdetails=1&format=json&countrycodes=de&q=
         ${encodeURIComponent(inputPostCode)},
         ${encodeURIComponent(inputCityName)},
         ${encodeURIComponent(inputAddress)}`;
@@ -87,7 +86,11 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
             if (data.length > 0) {
                 let highestRankResult = data[0];
 
-                if (highestRankResult.place_rank === 30) {
+                if (highestRankResult.place_rank === 30
+                    && isRoadInResponse(inputAddress, highestRankResult.address.road)
+                    && isHouseNumberInResponse(inputAddress, highestRankResult.address.house_number)
+                    && isPostCodeInResponse(inputPostCode, highestRankResult.address.postcode)
+                    && isCityInResponse(inputCityName, highestRankResult.address.city)) {
                     if (formType === "update") {
                         deleteLocation(ID);
                     }
@@ -98,7 +101,7 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
                         inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
                 } else {
                     // Handle low place_rank, which may indicate an inaccurate or ambiguous result
-                    alert('Low place_rank. Please provide a more specific and accurate address.');
+                    alert('Please provide a more specific and accurate address.');
                 }
             } else {
                 // No result, handle accordingly
@@ -106,6 +109,34 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
             }
         })
         .catch(error => console.error('Error during geocoding:', error));
+}
+
+function isRoadInResponse(inputAddress, responseAddress) {
+    const cleanInputAddress = inputAddress.replace(/\b[A-Za-z]*\d+[A-Za-z]*\b/g, '').replace(/\d+/g, '').replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+    const cleanResponseAddress = responseAddress.replace(/\b[A-Za-z]*\d+[A-Za-z]*\b/g, '').replace(/\d+/g, '').replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+
+    return cleanInputAddress === cleanResponseAddress;
+}
+
+function isHouseNumberInResponse(inputAddress, responseHouseNumber) {
+    const cleanInputAddress = inputAddress.replace(/[^0-9]/g, '').trim();
+    const cleanResponseHouseNumber = responseHouseNumber.replace(/[^0-9]/g, '').trim();
+
+    return cleanInputAddress === cleanResponseHouseNumber;
+}
+
+function isPostCodeInResponse(inputPostCode, responsePostCode) {
+    const cleanInputPostCode = inputPostCode.replace(/[^0-9]/g, '').trim();;
+    const cleanResponsePostCode = responsePostCode.replace(/[^0-9]/g, '').trim();;
+
+    return cleanInputPostCode === cleanResponsePostCode;
+}
+
+function isCityInResponse(inputCity, responseCity) {
+    const cleanInputCity = inputCity.replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+    const cleanResponseCity = responseCity.replace(/[^\w\s]/g, '').replace(/\s+/g, ' ').trim().toLowerCase();
+
+    return cleanInputCity === cleanResponseCity;
 }
 
 let markers = [];
@@ -127,9 +158,6 @@ function newListItem(inputLocationName, inputDescription, inputAddress, inputPC,
                 ID: generateUniqueId()
             };
     }else if (formType === "update") {
-        // Create a deep copy of the existing object before modifying it
-        console.log("elseIf " + locID)
-        console.log(listOfAllLocations)
         addressObject =
             {
                 Name: inputLocationName,
@@ -142,7 +170,6 @@ function newListItem(inputLocationName, inputDescription, inputAddress, inputPC,
                 ID: locID
             };
     }
-    console.log("newListItem: " + addressObject.Name)
     listOfAllLocations[addressObject.ID] = addressObject;
 
     // Exclude the ID from the displayed information
@@ -161,9 +188,6 @@ function newListItem(inputLocationName, inputDescription, inputAddress, inputPC,
         fromAddToMain();
         clearAddForm();
     }
-
-    console.log(listOfAllLocations)
-    console.log(markers)
 }
 
 function generateUniqueId() {
