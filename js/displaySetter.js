@@ -53,7 +53,6 @@ document.getElementById("address-list").onclick = fromMainToDU;
 function fromMainToDU(e){
     setDisplay('main-container', false);
     setDisplay('du-container', true);
-    console.log("target id: " + e.target.dataset.id);
     fillDUForm(e.target.dataset.id);
 }
 
