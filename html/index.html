@@ -46,9 +46,11 @@
             <div id="address-table">
                 <h2 id="table-name">Orte in Berlin/Brandenburg</h2>
                 <ul id="address-list">
-                    <li onclick="fromMainToDU()">Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
-                    <li onclick="fromMainToDU()">Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
-                    <li onclick="fromMainToDU()">Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
+                    <!---
+                    <li>Alexanderplatz, Alexanderplatz 1, 10178 Berlin</li>
+                    <li>Unter den Linden, Unter den Linden 1, 10117 Berlin</li>
+                    <li>Königin-Elisabeth-Straße, Königin-Elisabeth-Straße 1, 14059 Berlin</li>
+                    -->
                 </ul>
             </div>
             <div id="map">
@@ -96,7 +98,7 @@
                     <p class="requiredField">*: Fields are required!</p>
 
                     <div id="addButtonContainer">
-                        <button value="add" type="submit" id="addLocationButton" onsubmit="getNewLocationData()">Save</button>
+                        <button value="add" type="submit" id="addLocationButton">Save</button>
                         <button value="cancel" type="button" id="addCancelButton">Cancel</button>
                     </div>
                 </form>
@@ -108,7 +110,7 @@
 
                 <h1 class="du-message">Delete/Update location</h1>
 
-                <form id="duLocation" method="post" name="forDU">
+                <form id="formDU" method="post" name="forDU">
 
                     <label for="name-du"><b>Name:</b></label>
                     <input type="text" id="name-du" value="Edeka">
@@ -124,21 +126,21 @@
 
                     <label for="city-du"><b>City:</b></label>
                     <select name="city-du" id="city-du">
-                        <option value="city">Berlin</option>
-                        <option value="city">Brandenburg</option>
+                        <option>Berlin</option>
+                        <option>Brandenburg</option>
                     </select>
 
                     <label for="lat-du"><b>Lat:</b></label>
-                    <input type="number" id="lat-du" value="52.52028288709338">
+                    <input type="number" step="any" id="lat-du" value="52.52028288709338">
 
                     <label for="lon-du"><b>Lon:</b></label>
-                    <input type="number" id="lon-du" value="13.38685286856809">
+                    <input type="number" step="any" id="lon-du" value="13.38685286856809">
 
                     <p class="requiredField">*: Fields are required!</p>
 
                     <div id="duButtonContainer">
-                        <button value="update" type="button" id="duUpdateBtn">Update</button>
-                        <button value="delete" type="button" id="duDeleteBtn">Delete</button>
+                        <button value="update" type="submit" id="duUpdateBtn">Update</button>
+                        <button value="delete" type="submit" id="duDeleteBtn">Delete</button>
                         <button value="cancel" type="button" id="duCancelBtn">Cancel</button>
                     </div>
 
@@ -153,9 +155,9 @@
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="../js/login.js"></script>
-    <script src="../js/logout.js"></script>
     <script src="../js/duLocation.js"></script>
     <script src="../js/addNewLocation.js"></script>
     <script src="../js/displaySetter.js"></script>
+    <script src="../js/currentLocationsOfBerlin.js"></script>
 </body>
 </html>

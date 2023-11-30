@@ -1,22 +1,25 @@
- //User data as objects
-let admin = {
-    username: "admina",
-    passwordAdmin: "password_A",
-    role: "admin"
-};
+class User{
+    constructor(username, password, role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+}
 
-let guest = {
-    username: "normalo",
-    passwordGuest: "password_G",
-    role: "non-admin"
-};
+//User data as objects
+let admin = new User("admina", "a", "admin");
+let guest = new User("normalo", "g", "non-admin");
 
-//default: false
-let adminIsLoggedIn;
+let loginAttemptsRemaining= 3;
 
 const eventHandlerLogin = function () {
     setAllNoneButLogin();
+    addDefaultLocation();
     document.getElementById("formLogin").onsubmit = getUserLoginInput;
+}
+
+function resetAttemptCount(){
+    loginAttemptsRemaining = 3;
 }
 
 //The data, which we get from the user
@@ -27,25 +30,42 @@ function getUserLoginInput(e){
     loginCheck(inputUsername, inputPassword)
 }
 
-//The data from the user will check for a successfully login
+//The data from the user will check for a successful login
 function loginCheck(inputUsername, inputPassword){
       if(inputUsername && inputPassword){
-        if(inputUsername === guest.username && inputPassword === guest.passwordGuest){
-            //adminIsLoggedIn == false
-            buttonSetter(adminIsLoggedIn);
-            fromLoginToMain();
-            document.getElementById('userName').innerHTML = ", " + inputUsername;
-            return true
+        if(inputUsername === guest.username && inputPassword === guest.password){
+            handleSuccessfulLogin(false, inputUsername);
         }
-        if(inputUsername === admin.username && inputPassword === admin.passwordAdmin){
-            //adminIsLoggedIn == !false == true
-            buttonSetter(!adminIsLoggedIn);
-            fromLoginToMain();
-            document.getElementById('userName').innerHTML = ", " + inputUsername;
-            return true;
+        else if(inputUsername === admin.username && inputPassword === admin.password){
+            handleSuccessfulLogin(true, inputUsername);
         }else{
-            alert('Dear User, your input is invalid.');
-            return false;
+            handleFailedLogin();
         }
     }
+}
+
+// Handle a successful login
+function handleSuccessfulLogin(isAdmin, inputUsername) {
+    buttonSetter(isAdmin);
+    fromLoginToMain();
+    document.getElementById('userName').innerHTML = `, ${inputUsername}`;
+}
+
+// Handle a failed login attempt
+function handleFailedLogin() {
+    loginAttemptsRemaining--;
+    if (loginAttemptsRemaining !== 0) {
+        alert(`Dear User, your input is invalid.\nYou have only ${loginAttemptsRemaining} attempts left.`);
+    } else {
+        disableLoginButton();
+        alert('Dear User, your number of attempts is achieved.\nYou are locked for the next time.');
+    }
+}
+
+// Disable the login button after a certain number of failed attempts
+function disableLoginButton() {
+    const loginButton = document.getElementById('loginButton');
+    loginButton.style.backgroundColor = 'lightgrey';
+    loginButton.disabled = true;
+    loginButton.style.pointerEvents = 'none';
 }
