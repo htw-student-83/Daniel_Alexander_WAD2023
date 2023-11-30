@@ -69,6 +69,11 @@ function getNewLocationData(e, formType, locationID){
         return; // Prevent further execution of the function
     }
 
+    getNewGeoData(inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName, formType, ID);
+
+}
+
+function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName, formType, ID){
     // Use Nominatim Geocoding API to get latitude and longitude
     let nominatimUrl =
         `https://nominatim.openstreetmap.org/search?format=json&countrycodes=de&q=
