@@ -126,8 +126,8 @@ function isHouseNumberInResponse(inputAddress, responseHouseNumber) {
 }
 
 function isPostCodeInResponse(inputPostCode, responsePostCode) {
-    const cleanInputPostCode = inputPostCode.replace(/[^0-9]/g, '').trim();;
-    const cleanResponsePostCode = responsePostCode.replace(/[^0-9]/g, '').trim();;
+    const cleanInputPostCode = inputPostCode.replace(/[^0-9]/g, '').trim();
+    const cleanResponsePostCode = responsePostCode.replace(/[^0-9]/g, '').trim();
 
     return cleanInputPostCode === cleanResponsePostCode;
 }
