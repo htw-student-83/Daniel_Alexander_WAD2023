@@ -100,6 +100,7 @@ document.getElementById("logoutBtn").onclick = logout;
 function logout(){
     setDisplayLogin(true)
     setAllNoneButLogin();
+    resetAttemptCount();
     document.getElementById('username-login').value = "";
     document.getElementById('password-login').value = "";
 }

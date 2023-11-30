@@ -18,6 +18,10 @@ const eventHandlerLogin = function () {
     document.getElementById("formLogin").onsubmit = getUserLoginInput;
 }
 
+function resetAttemptCount(){
+    loginAttemptsRemaining = 3;
+}
+
 //The data, which we get from the user
 function getUserLoginInput(e){
     e.preventDefault();
