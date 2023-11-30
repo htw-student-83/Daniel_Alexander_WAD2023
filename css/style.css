@@ -65,6 +65,7 @@
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto 1fr auto; /* Adjust rows based on your design */
+    grid-gap: 10px;
     justify-content: center;
 
     grid-template-areas:
