@@ -1,7 +1,7 @@
 function setAllNoneButLogin(){
-    setDisplayMain(false);
-    setDisplayAdd(false);
-    setDisplayDU(false);
+    setDisplay('main-container', false);
+    setDisplay('add-container', false);
+    setDisplay('du-container', false);
 }
 
 function buttonSetter(isAdmin){
@@ -10,7 +10,6 @@ function buttonSetter(isAdmin){
         document.getElementById('duUpdateBtn').style.display = "block"
         document.getElementById('duDeleteBtn').style.display = "block"
         document.getElementById('duCancelBtn').style.justifyContent = "none"
-
     }
     if(!isAdmin){
         document.getElementById('mainAddBtn').style.display = "none";
@@ -20,73 +19,40 @@ function buttonSetter(isAdmin){
     }
 }
 
-function setDisplayLogin(isLogin){
-    if(isLogin){
-        document.getElementById('web-name').style.display = 'flex';
-        document.getElementById('login-container').style.display = 'grid';
-    }
-    if(!isLogin){
-        document.getElementById('web-name').style.display = 'none';
-        document.getElementById('login-container').style.display = 'none';
-    }
-}
+function setDisplay(containerID, isDisplay) {
+    const container = document.getElementById(containerID);
+    container.style.display = isDisplay ? 'grid' : 'none';
 
-function setDisplayMain(isMain){
-    if(isMain){
-        document.getElementById('main-container').style.display = 'grid';
+    if (containerID === 'login-container') {
+        document.getElementById('web-name').style.display = isDisplay ? 'flex' : 'none';
     }
-    if(!isMain){
-        document.getElementById('main-container').style.display = 'none';
-    }
-}
-
-function setDisplayAdd(isAdd){
-    if(isAdd){
-        document.getElementById('add-container').style.display = 'grid';
-    }
-    if(!isAdd){
-        document.getElementById('add-container').style.display = 'none';
-    }
-}
-
-function setDisplayDU(isDU){
-    if(isDU){
-        document.getElementById('du-container').style.display = 'grid';
-    }
-    if(!isDU){
-        document.getElementById('du-container').style.display = 'none';
-    }
-}
-
-function setLoginNone(){
-    setDisplayLogin(false)
 }
 
 function fromLoginToMain(){
-    setLoginNone();
-    setDisplayMain(true);
+    setDisplay('login-container', false)
+    setDisplay('main-container', true);
 }
 
 document.getElementById("mainAddBtn").onclick = fromMainToAdd;
 
 function fromMainToAdd(){
-    setDisplayMain(false);
-    setDisplayAdd(true);
+    setDisplay('main-container', false);
+    setDisplay('add-container', true);
 }
 
 document.getElementById("addCancelButton").onclick = fromAddToMain;
 
 function fromAddToMain(){
-    setDisplayMain(true);
-    setDisplayAdd(false);
+    setDisplay('main-container', true);
+    setDisplay('add-container', false);
     clearAddForm();
 }
 
 document.getElementById("address-list").onclick = fromMainToDU;
 
 function fromMainToDU(e){
-    setDisplayMain(false);
-    setDisplayDU(true);
+    setDisplay('main-container', false);
+    setDisplay('du-container', true);
     console.log("target id: " + e.target.dataset.id);
     fillDUForm(e.target.dataset.id);
 }
@@ -94,14 +60,14 @@ function fromMainToDU(e){
 document.getElementById("duCancelBtn").onclick = fromDUToMain;
 
 function fromDUToMain(){
-    setDisplayMain(true);
-    setDisplayDU(false);
+    setDisplay('main-container', true);
+    setDisplay('du-container', false);
 }
 
 document.getElementById("logoutBtn").onclick = logout;
 
 function logout(){
-    setDisplayLogin(true)
+    setDisplay('login-container', true);
     setAllNoneButLogin();
     resetAttemptCount();
     document.getElementById('username-login').value = "";
