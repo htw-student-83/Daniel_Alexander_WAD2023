@@ -9,11 +9,14 @@ function buttonSetter(isAdmin){
         document.getElementById('mainAddBtn').style.display = "block";
         document.getElementById('duUpdateBtn').style.display = "block"
         document.getElementById('duDeleteBtn').style.display = "block"
+        document.getElementById('duCancelBtn').style.justifyContent = "none"
+
     }
     if(!isAdmin){
         document.getElementById('mainAddBtn').style.display = "none";
         document.getElementById('duUpdateBtn').style.display = "none"
         document.getElementById('duDeleteBtn').style.display = "none"
+        document.getElementById('duButtonContainer').style.justifyContent = "center"
     }
 }
 

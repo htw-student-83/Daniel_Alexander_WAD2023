@@ -5,12 +5,19 @@
 
 /*container*/
 
+#add-container,
+#du-container {
+    min-height: 83.1vh; /* Adjust the value as needed */
+    padding-top: 100px;
+}
+
 #login-container{
     width: 100vw;
-    height: 100vh;
+    min-height: 74.7vh; /* Adjust the value as needed */
     display: grid;
     grid-template-columns: auto auto auto;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: auto 1fr auto; /* Adjust rows based on your design */
+    padding-top: 100px;
     column-gap: 10px;
     row-gap: 20px;
     justify-content: center;
@@ -40,10 +47,10 @@
 #add-container{
     background-color: #9f9898;
     width: 100vw;
-    height: 100vh;
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 100px 1fr 1fr;
+    grid-template-rows: auto 1fr auto; /* Adjust rows based on your design */
+    grid-gap: 10px;
     justify-content: center;
 
     grid-template-areas:
@@ -55,10 +62,9 @@
 #du-container{
     background-color: #9f9898;
     width: 100vw;
-    height: 100vh;
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 100px 1fr 1fr;
+    grid-template-rows: auto 1fr auto; /* Adjust rows based on your design */
     justify-content: center;
 
     grid-template-areas:
