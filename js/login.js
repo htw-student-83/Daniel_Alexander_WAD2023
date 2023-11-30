@@ -36,7 +36,7 @@ function loginCheck(inputUsername, inputPassword){
         if(inputUsername === guest.username && inputPassword === guest.password){
             handleSuccessfulLogin(false, inputUsername);
         }
-        if(inputUsername === admin.username && inputPassword === admin.password){
+        else if(inputUsername === admin.username && inputPassword === admin.password){
             handleSuccessfulLogin(true, inputUsername);
         }else{
             handleFailedLogin();
