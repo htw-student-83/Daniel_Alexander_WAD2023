@@ -1,17 +1,16 @@
-let loginAttemptsRemaining= 3;
+class User{
+    constructor(username, password, role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+}
 
 //User data as objects
-let admin = {
-    username: "admina",
-    passwordAdmin: "a",
-    role: "admin"
-};
+let admin = new User("admina", "a", "admin");
+let guest = new User("normalo", "g", "non-admin");
 
-let guest = {
-    username: "normalo",
-    passwordGuest: "password_G",
-    role: "non-admin"
-};
+let loginAttemptsRemaining= 3;
 
 const eventHandlerLogin = function () {
     setAllNoneButLogin();
@@ -30,25 +29,22 @@ function getUserLoginInput(e){
 //The data from the user will check for a successful login
 function loginCheck(inputUsername, inputPassword){
       if(inputUsername && inputPassword){
-        if(inputUsername === guest.username && inputPassword === guest.passwordGuest){
+        if(inputUsername === guest.username && inputPassword === guest.password){
             handleSuccessfulLogin(false, inputUsername);
-            return true
         }
-        if(inputUsername === admin.username && inputPassword === admin.passwordAdmin){
+        if(inputUsername === admin.username && inputPassword === admin.password){
             handleSuccessfulLogin(true, inputUsername);
-            return true;
         }else{
             handleFailedLogin();
-            return false;
         }
     }
 }
 
 // Handle a successful login
-function handleSuccessfulLogin(isAdmin, username) {
+function handleSuccessfulLogin(isAdmin, inputUsername) {
     buttonSetter(isAdmin);
     fromLoginToMain();
-    document.getElementById('userName').innerHTML = `, ${username}`;
+    document.getElementById('userName').innerHTML = `, ${inputUsername}`;
 }
 
 // Handle a failed login attempt
