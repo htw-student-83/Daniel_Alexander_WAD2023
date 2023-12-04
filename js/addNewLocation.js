@@ -126,8 +126,8 @@ function isHouseNumberInResponse(inputAddress, responseHouseNumber) {
 }
 
 function isPostCodeInResponse(inputPostCode, responsePostCode) {
-    const cleanInputPostCode = inputPostCode.replace(/[^0-9]/g, '').trim();;
-    const cleanResponsePostCode = responsePostCode.replace(/[^0-9]/g, '').trim();;
+    const cleanInputPostCode = inputPostCode.replace(/[^0-9]/g, '').trim();
+    const cleanResponsePostCode = responsePostCode.replace(/[^0-9]/g, '').trim();
 
     return cleanInputPostCode === cleanResponsePostCode;
 }
@@ -170,12 +170,14 @@ function newListItem(inputLocationName, inputDescription, inputAddress, inputPC,
                 ID: locID
             };
     }
+
     listOfAllLocations[addressObject.ID] = addressObject;
 
     // Exclude the ID from the displayed information
     let nonEmptyValues = Object.entries(addressObject)
-        .filter(([key, value]) => key !== 'ID' && typeof value === 'string' && value.trim() !== '')
-        .map(([key, value]) => value);    let listItemText = nonEmptyValues.join(', ');
+        .filter(([key, value]) => key !== 'ID' && key !== 'Lon' && key !== 'Lat' && typeof value === 'string' && value.trim() !== '')
+        .map(([key, value]) => value);
+    let listItemText = nonEmptyValues.join(', ');
 
     let addressListItem = document.createElement("li");
     addressListItem.setAttribute('data-id', addressObject.ID.toString());
