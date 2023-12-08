@@ -1,3 +1,25 @@
+import axios from 'axios';
+
+const [locationData, setLocationData] = useState({
+    name: "",
+    description: "",
+    address: "",
+    postcode: "",
+    cityName: "",
+    lat: "",
+    lon:""
+})
+
+const handleNewLocationData = (event) => {
+    const {value, name} = event.target
+    setLocationData((preve) => {
+        return{
+            ...preve,
+            [name] : value,
+        }
+    })
+}
+
 // Initialize Leaflet map
 let map = L.map('map').setView([52.52150585, 13.412380949017187], 15);
 // Initial coordinates for Alexanderplatz 1, 10178 Berlin
@@ -97,6 +119,14 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
 
                     let inputLat = parseFloat(highestRankResult.lat);
                     let inputLon = parseFloat(highestRankResult.lon);
+
+                    //client sends data to the server
+                    handleNewLocationData();
+                    const newLocation = async(event) => {
+                            event.preventDefault();
+                            const data = await axios.post('/loc/create', locationData)
+                    }
+
                     newListItem(inputLocationName, inputDescription, inputAddress,
                         inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
                 } else {

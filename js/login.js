@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 class User{
     constructor(username, password, role) {
         this.username = username;
@@ -5,6 +7,8 @@ class User{
         this.role = role;
     }
 }
+
+axios.default.baseURI("http://localhost:8000/");
 
 //User data as objects
 let admin = new User("admina", "a", "admin");
@@ -30,13 +34,30 @@ function getUserLoginInput(e){
     loginCheck(inputUsername, inputPassword)
 }
 
+
+//Copie The data from the user will check for a successful login
+async function loginCheck(inputUsername, inputPassword){
+    if(inputUsername && inputPassword){
+        const loginUsername = await axios.get('/login' + inputUsername)
+        const loginPW = await axios.get('/login' + inputPassword)
+        const role = await axios.get('/Rolle')
+        if(loginUsername && loginPW && role !== "admin"){
+            handleSuccessfulLogin(false, inputUsername);
+        }else if(loginUsername && loginPW && role === "admin"){
+            handleSuccessfulLogin(true, inputUsername);
+        }else{
+            handleFailedLogin();
+        }
+    }
+}
+
+
 //The data from the user will check for a successful login
 function loginCheck(inputUsername, inputPassword){
       if(inputUsername && inputPassword){
         if(inputUsername === guest.username && inputPassword === guest.password){
             handleSuccessfulLogin(false, inputUsername);
-        }
-        else if(inputUsername === admin.username && inputPassword === admin.password){
+        }else if(inputUsername === admin.username && inputPassword === admin.password){
             handleSuccessfulLogin(true, inputUsername);
         }else{
             handleFailedLogin();

@@ -1,3 +1,4 @@
+import axios from 'axios';
 function fillDUForm(objectID){
     console.log("fillDuForm:" + objectID);
     document.getElementById("name-du").value = listOfAllLocations[objectID].Name;
@@ -54,6 +55,26 @@ function deleteLocation(locationId) {
         if (listItem) {
             listItem.remove();
         }
+
+    }
+    // Return to the main view
+    fromDUToMain();
+}
+
+// Copie
+async function deleteLocationDB(locationId) {
+    // Assuming locationId corresponds to the ID property in the location object
+    if (markers[locationId]) {
+        map.removeLayer(markers[locationId]);
+        delete markers[locationId];
+        delete listOfAllLocations[locationId];
+
+        // Remove the corresponding list item
+        let listItem = document.querySelector(`[data-id="${locationId}"]`);
+        if (listItem) {
+            listItem.remove();
+        }
+        await axios.delete('/loc/delete', locationId);
     }
     // Return to the main view
     fromDUToMain();
