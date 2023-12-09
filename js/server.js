@@ -29,13 +29,13 @@ app.get('/loc/', async(req, res) =>{
  *      "Lon": 13.344444,
  * }
  */
-app.post('/loc/create', async(req, res) =>{
+app.post('/loc', async(req, res) =>{
     let data = new location(req.body);
     await data.save();
     if(data.ok){
         res.send({message: "Statuscode 201."});
     }else{
-        res.send({message: "Statuscode 4..?."});
+        res.send({message: "Statuscode 401."});
     }
 })
 
@@ -53,18 +53,18 @@ app.post('/loc/create', async(req, res) =>{
  *      "Lon": 13.3567444,
  * }
  */
-app.put('/loc/update', async(req, res) =>{
+app.put('/loc', async(req, res) =>{
     const {id,...rest} = req.body
     const data = await location.updateOne({_id : id}, rest)
     if(data.ok){
         res.send({message: "Statuscode 204."});
     }else{
-        res.send({message: "Statuscode 4..?."});
+        res.send({message: "Statuscode 401."});
     }
 })
 
 
-app.get('/login', async(req, res) =>{
+app.get('/users', async(req, res) =>{
     const role = "admin";
     const {benutzername} = req.body;
     const {password} = req.body;
@@ -79,7 +79,7 @@ app.get('/login', async(req, res) =>{
 })
 
 
-app.delete('/loc/delete', async(req, res) =>{
+app.delete('/loc', async(req, res) =>{
     const {id} = req.body;
     const data = await location.deleteOne({_id : id})
     if(data.ok){

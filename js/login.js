@@ -38,9 +38,9 @@ function getUserLoginInput(e){
 //Copie The data from the user will check for a successful login
 async function loginCheck(inputUsername, inputPassword){
     if(inputUsername && inputPassword){
-        const loginUsername = await axios.get('/login' + inputUsername)
-        const loginPW = await axios.get('/login' + inputPassword)
-        const role = await axios.get('/Rolle')
+        const loginUsername = await axios.get('/users' + inputUsername)
+        const loginPW = await axios.get('/users' + inputPassword)
+        const role = await axios.get('/users')
         if(loginUsername && loginPW && role !== "admin"){
             handleSuccessfulLogin(false, inputUsername);
         }else if(loginUsername && loginPW && role === "admin"){

@@ -124,7 +124,7 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
                     handleNewLocationData();
                     const newLocation = async(event) => {
                             event.preventDefault();
-                            const data = await axios.post('/loc/create', locationData)
+                            const data = await axios.post('/loc', locationData)
                     }
 
                     newListItem(inputLocationName, inputDescription, inputAddress,
