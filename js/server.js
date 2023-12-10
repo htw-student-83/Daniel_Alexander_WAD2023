@@ -1,17 +1,61 @@
 const env = require('dotenv');
 const express = require('express');
+const mongoose = require('mongoose');
+
 app.use(express.json())
 
 env.config();
-
 const PORT = process.env.PORT || 8080;
 
-app.get('/loc/', async(req, res) =>{
-    const data = await location.find({});
-    if(data.length > 0){
-        res.json({data});
+const user = mongoose.Schema({
+    username: String,
+    firstname: String,
+    role: String,
+}, {
+    timestamps : true
+})
+
+const location = mongoose.Schema({
+    name: String,
+    description: String,
+    address: String,
+    postcode: String,
+    cityName: String,
+    lat: Number,
+    lon: Number,
+}, {
+    timestamps : true
+})
+
+//Connection to the DB
+mongoose.connect('mongodb://mongodb1.f4.htw-berlin.de:27017/daniel_alexander_wad2023')
+    .then(() => {
+        console.log("connect to DB.")
+        app.listen(PORT, () => console.log("Server is listening..."))
+    })
+    .catch((err) => console.log(err));
+
+
+//to handle the login process
+app.get('/users', async(req, res) =>{
+    const {benutzername} = req.body;
+    const {password} = req.body;
+    const userData = await user.find({benutzername: benutzername, password: password});
+    if(userData){
+        res.json({statuscode: 200, message: userData});
     }else{
-        res.send({message: "Statuscode 4..?."});
+        res.send({statuscode: 401});
+    }
+})
+
+
+//to get all location from the DB
+app.get('/loc/', async(req, res) =>{
+    const savedLocation = await location.find({});
+    if(savedLocation){
+        res.json({statuscode: 200, message: savedLocation});
+    }else{
+        res.send({statuscode: 401});
     }
 })
 
@@ -33,9 +77,9 @@ app.post('/loc', async(req, res) =>{
     let data = new location(req.body);
     await data.save();
     if(data.ok){
-        res.send({message: "Statuscode 201."});
+        res.send({statuscode: 201});
     }else{
-        res.send({message: "Statuscode 401."});
+        res.send({statuscode: 401});
     }
 })
 
@@ -55,37 +99,23 @@ app.post('/loc', async(req, res) =>{
  */
 app.put('/loc', async(req, res) =>{
     const {id,...rest} = req.body
-    const data = await location.updateOne({_id : id}, rest)
+    const data = await location.update({_id : id}, rest)
     if(data.ok){
-        res.send({message: "Statuscode 204."});
+        res.send({statuscode: 204});
     }else{
-        res.send({message: "Statuscode 401."});
+        res.send({statuscode: 401});
     }
 })
 
 
-app.get('/users', async(req, res) =>{
-    const role = "admin";
-    const {benutzername} = req.body;
-    const {password} = req.body;
-    const savedUserName = await location.find({benutzername: benutzername});
-    const savedPassword = await location.find({password: password});
-    const position = await location.find({role: role});
-    if(savedUserName.length > 0 && savedPassword.length > 0 && position.length > 0){
-        res.json({savedUserName, savedPassword, position});
-    }else{
-        res.send({message: "Statuscode 4..?."});
-    }
-})
-
-
+//to delete a location by id
 app.delete('/loc', async(req, res) =>{
     const {id} = req.body;
-    const data = await location.deleteOne({_id : id})
+    const data = await location.delete({_id : id})
     if(data.ok){
-        res.send({message: "Statuscode 204."});
+        res.send({statuscode: 204});
     }else{
-        res.send({message: "Statuscode 4..?."});
+        res.send({statuscode: 401});
     }
 })
 
