@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 
 const [locationData, setLocationData] = useState({
     name: "",
@@ -124,7 +124,7 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
                     handleNewLocationData();
                     const newLocation = async(event) => {
                             event.preventDefault();
-                            const data = await axios.post('/loc', locationData)
+                            const data = await axios.post('/loc', locationData);
                     }
 
                     newListItem(inputLocationName, inputDescription, inputAddress,

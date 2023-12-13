@@ -1,8 +1,9 @@
 const env = require('dotenv');
 const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 
-app.use(express.json())
+//const app = app.use(express.json())
 
 env.config();
 const PORT = process.env.PORT || 8080;
@@ -43,6 +44,7 @@ app.get('/users', async(req, res) =>{
     const userData = await user.find({benutzername: benutzername, password: password});
     if(userData){
         res.json({statuscode: 200, message: userData});
+        //Nach weiteren möglichen Problemen abfragen
     }else{
         res.send({statuscode: 401});
     }
@@ -54,8 +56,9 @@ app.get('/loc/', async(req, res) =>{
     const savedLocation = await location.find({});
     if(savedLocation){
         res.json({statuscode: 200, message: savedLocation});
+        //Weitere Probleme auch berücksichtigen
     }else{
-        res.send({statuscode: 401});
+        res.send({statuscode: 404});
     }
 })
 
@@ -79,7 +82,7 @@ app.post('/loc', async(req, res) =>{
     if(data.ok){
         res.send({statuscode: 201});
     }else{
-        res.send({statuscode: 401});
+        res.send({statuscode: 400});
     }
 })
 
@@ -103,7 +106,7 @@ app.put('/loc', async(req, res) =>{
     if(data.ok){
         res.send({statuscode: 204});
     }else{
-        res.send({statuscode: 401});
+        res.send({statuscode: 400});
     }
 })
 
@@ -115,7 +118,7 @@ app.delete('/loc', async(req, res) =>{
     if(data.ok){
         res.send({statuscode: 204});
     }else{
-        res.send({statuscode: 401});
+        res.send({statuscode: 400});
     }
 })
 

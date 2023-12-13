@@ -1,4 +1,4 @@
-import axios from 'axios';
+const axios = require('axios');
 function fillDUForm(objectID){
     console.log("fillDuForm:" + objectID);
     document.getElementById("name-du").value = listOfAllLocations[objectID].Name;
