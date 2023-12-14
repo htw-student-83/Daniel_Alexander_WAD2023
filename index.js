@@ -1,9 +1,29 @@
-const { MongoClient } = require("mongodb");
+require('dotenv').config();
+
 const express = require('express');
 const session = require('express-session');
 const path = require('path')
-const app = express();
+const mongoose = require('mongoose')
+const routes = require('./routes/routes');
+const mongoString = process.env.DATABASE_URL_ALEX
 
+//mongoDB connection
+mongoose.connect(mongoString);
+const database = mongoose.connection;
+
+database.on('error', (error) => {
+    console.log(error)
+});
+
+database.once('connected', () => {
+    console.log('Database Connected');
+});
+
+//express setup
+const app = express();
+const PORT = process.env.PORT || 3000
+
+//session config
 app.use(session({
     secret: 'secret',
     resave: true,
@@ -11,6 +31,8 @@ app.use(session({
 }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+
+//import directories for html
 app.use(express.static(path.join(__dirname + '/css')));
 app.use(express.static(path.join(__dirname + '/image')));
 app.use(express.static(path.join(__dirname + '/js')));
@@ -19,26 +41,9 @@ app.get('/', function (request, response){
     response.sendFile(path.join(__dirname + '/index.html'));
 });
 
-app.listen(3000);
+//set api
+app.use('/api', routes)
 
-const host = "mongodb1.f4.htw-berlin.de";
-const user_alex = "daniel_alexander_wad2023_alexander_yurovskyy";
-const alex_password = "4e2mV637p";
-const user_daniel = "daniel_alexander_wad2023_daniel_granass";
-const daniel_password = "gz5Uu1SUB";
-const database = "daniel_alexander_wad2023";
-const uri = `mongodb://${user_alex}:${alex_password}@${host}:27017/${database}`;
-
-const client = new MongoClient(uri);
-async function run() {
-    try {
-        const database = client.db('daniel_alexander_wad2023');
-        const users = database.collection('user_roles');
-        const query = {firstname: 'Mina' };
-        const doc = await users.findOne(query);
-    } finally {
-        await client.close();
-    }
-}
-
-run().catch(console.dir);
+app.listen(PORT, () => {
+    console.log(`Server Started at ${PORT}`)
+})

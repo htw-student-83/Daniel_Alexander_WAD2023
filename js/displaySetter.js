@@ -4,14 +4,14 @@ function setAllNoneButLogin(){
     setDisplay('du-container', false);
 }
 
-function buttonSetter(isAdmin){
-    if(isAdmin){
+function buttonSetter(role){
+    if(role === "admin"){
         document.getElementById('mainAddBtn').style.display = "block";
         document.getElementById('duUpdateBtn').style.display = "block"
         document.getElementById('duDeleteBtn').style.display = "block"
         document.getElementById('duCancelBtn').style.justifyContent = "none"
     }
-    if(!isAdmin){
+    if(role === "non-admin"){
         document.getElementById('mainAddBtn').style.display = "none";
         document.getElementById('duUpdateBtn').style.display = "none"
         document.getElementById('duDeleteBtn').style.display = "none"

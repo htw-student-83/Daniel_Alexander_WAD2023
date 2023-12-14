@@ -21,13 +21,13 @@
 
                     <h2 class="login-message">Login</h2>
 
-                    <form id="formLogin" action="/users" method="POST" name="formLogin">
+                    <form id="formLogin" action="/api/users" method="POST" name="formLogin">
 
                         <label for="username-login"><b>Username:*</b></label>
-                        <input type="text" placeholder="Max Mustermann" id="username-login" required value="" autofocus>
+                        <input type="text" name="username" placeholder="Max Mustermann" id="username-login" required autofocus>
 
                         <label for="password-login"><b>Password:*</b></label>
-                        <input type="password" placeholder="password" id="password-login" required value="" autofocus>
+                        <input type="password" name="password" placeholder="password" id="password-login" required autofocus>
 
                         <p class="requiredField">*: Fields are required!</p>
 
