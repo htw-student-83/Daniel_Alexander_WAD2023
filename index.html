@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="/style.css">
     <title>Klimaneutrale Luft in Berlin/Brandenburg</title>
 </head>
 <body>
     <div class="container">
 
         <header id="web-name">
-            <img id="image" src="../image/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
+            <img id="image" src="/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
             <h1>Klimaneutrale Luft in Berlin/Brandenburg</h1>
         </header>
 
@@ -21,7 +21,7 @@
 
                     <h2 class="login-message">Login</h2>
 
-                    <form id="formLogin" method="GET" name="formLogin">
+                    <form id="formLogin" action="/users" method="POST" name="formLogin">
 
                         <label for="username-login"><b>Username:*</b></label>
                         <input type="text" placeholder="Max Mustermann" id="username-login" required value="" autofocus>
@@ -154,10 +154,10 @@
         </footer>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="../js/login.js"></script>
-    <script src="../js/duLocation.js"></script>
-    <script src="../js/addNewLocation.js"></script>
-    <script src="../js/displaySetter.js"></script>
-    <script src="../js/currentLocationsOfBerlin.js"></script>
+    <script src="/login.js"></script>
+    <script src="/duLocation.js"></script>
+    <script src="/addNewLocation.js"></script>
+    <script src="/displaySetter.js"></script>
+    <script src="/currentLocationsOfBerlin.js"></script>
 </body>
 </html>

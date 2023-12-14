@@ -1,9 +1,10 @@
 const env = require('dotenv');
+const { MongoClient } = require("mongodb");
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
-//const app = app.use(express.json())
+app.use(express.json())
 
 env.config();
 const PORT = process.env.PORT || 8080;
@@ -28,6 +29,46 @@ const location = mongoose.Schema({
     timestamps : true
 })
 
+
+// Replace the uri string with your connection string.
+const mongodriver= "mongodb";
+const userName = "daniel_alexander_wad2023_daniel_granass";
+const userPW = "gz5Uu1SUB";
+const host = "mongodb1.f4.htw-berlin.de:27017/";
+const dbName = "daniel_alexander_wad2023";
+const uri = mongodriver + "://" + userName + ":" + userPW + "@" + host + dbName;
+
+const client = new MongoClient(uri);
+app.get('/users', async function run() {
+    try {
+        const database = client.db('daniel_alexander_wad2023');
+        if(!database){
+            console.log("connection with db failed.")
+        }
+        const users = database.collection('user_roles');
+        if(!users){
+            console.log("collection users don't found");
+        }
+// FIND ONE: Query for a user with the name 'Mina’
+        const {benutzername} = req.body;
+        const {password} = req.body;
+        //const userLogin = {firstname: 'Mina', password: "a"};
+        //const query = {firstname: 'Mina' };
+        const user = await users.findOne(benutzername, password);
+        if(user){
+            res.json({statuscode: 200, message: user});
+            //Nach weiteren möglichen Problemen abfragen
+        }else{
+            res.send({statuscode: 401});
+        }
+    } finally {
+// Ensures that the client will close when you finish/error
+        await client.close();
+    }
+})
+run().catch(console.dir);
+
+/*
 //Connection to the DB
 mongoose.connect('mongodb://mongodb1.f4.htw-berlin.de:27017/daniel_alexander_wad2023')
     .then(() => {
@@ -49,7 +90,7 @@ app.get('/users', async(req, res) =>{
         res.send({statuscode: 401});
     }
 })
-
+*/
 
 //to get all location from the DB
 app.get('/loc/', async(req, res) =>{

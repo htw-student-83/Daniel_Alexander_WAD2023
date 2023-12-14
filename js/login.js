@@ -39,9 +39,9 @@ function getUserLoginInput(e){
 async function loginCheckTest(inputUsername, inputPassword){
     if(inputUsername && inputPassword){
         const loginData = await axios.get('/users' + inputUsername + inputPassword)
-        if(loginData && loginData.role !== "admin"){
+        if(loginData.status === 200 && loginData.role !== "admin"){
             handleSuccessfulLogin(false, inputUsername);
-        }else if(loginData && loginData.role === "admin"){
+        }else if(loginData.status === 200 && loginData.role === "admin"){
             handleSuccessfulLogin(true, inputUsername);
         }else{
             handleFailedLogin();
