@@ -1,6 +1,6 @@
 const express = require('express');
 const locationModel = require('../model/locationModel.js');
-const userRolesModel = require('../model/userModel.js');
+const UserModel = require('../model/userModel.js');
 const router = express.Router();
 
 router.post('/users', async function (request, response) {
@@ -9,7 +9,7 @@ router.post('/users', async function (request, response) {
 
     if (username && password) {
         try {
-            const user = await userRolesModel.findOne({ username: username }).exec();
+            const user = await UserModel.findOne({ username: username }).exec();
             if (!user) {
                 return response.status(401).json({ message: 'Invalid username or password' });
             }
@@ -24,7 +24,6 @@ router.post('/users', async function (request, response) {
                 role: user.role,
             };
 
-            request.session.user = userWithoutPassword;
             response.status(200).json(userWithoutPassword);
         } catch (error) {
             response.status(500).json({

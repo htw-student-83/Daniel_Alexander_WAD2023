@@ -15,7 +15,7 @@ const locationSchema = new mongoose.Schema({
    },
    postCode:{
        required: true,
-       type: String
+       type: Number
    },
    city:{
        required: true,
@@ -23,12 +23,14 @@ const locationSchema = new mongoose.Schema({
    },
    lat:{
        required: false,
-       type: String
+       type: Number
    },
    lon:{
        required: false,
-       type: String
+       type: Number
    }
 });
 
-module.exports = mongoose.model('Location', locationSchema);
+const LocationModel = mongoose.model('locations', locationSchema);
+
+module.exports = LocationModel;

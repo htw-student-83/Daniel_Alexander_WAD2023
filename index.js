@@ -1,9 +1,8 @@
 require('dotenv').config();
 
 const express = require('express');
-const session = require('express-session');
-const path = require('path')
-const mongoose = require('mongoose')
+const path = require('path');
+const mongoose = require('mongoose');
 const routes = require('./routes/routes');
 const mongoString = process.env.DATABASE_URL_ALEX
 
@@ -12,7 +11,7 @@ mongoose.connect(mongoString);
 const database = mongoose.connection;
 
 database.on('error', (error) => {
-    console.log(error)
+    console.log(error);
 });
 
 database.once('connected', () => {
@@ -23,13 +22,7 @@ database.once('connected', () => {
 const app = express();
 const PORT = process.env.PORT || 3000
 
-//session config
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-}))
-app.use(express.json())
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //import directories for html
