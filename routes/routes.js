@@ -3,6 +3,8 @@ const locationModel = require('../model/locationModel.js');
 const UserModel = require('../model/userModel.js');
 const router = express.Router();
 
+//users endpoint
+
 router.post('/users', async function (request, response) {
     let username = request.body.username;
     let password = request.body.password;
@@ -35,24 +37,31 @@ router.post('/users', async function (request, response) {
     }
 });
 
+//loc endpoints
+
+//Post Method
+router.post('/post', (req, res) => {
+    res.send('Post API')
+})
+
 //Get all Method
-router.get('/getAll', (request, response) => {
-    request.send('Get All API')
+router.get('/getAll', (req, res) => {
+    res.send('Get All API')
 })
 
 //Get by ID Method
-router.get('/getOne/:id', (request, response) => {
-    response.send(request.params.id)
+router.get('/getOne/:id', (req, res) => {
+    res.send('Get by ID API')
 })
 
 //Update by ID Method
-router.patch('/update/:id', (request, response) => {
-    request.send('Update by ID API')
+router.patch('/update/:id', (req, res) => {
+    res.send('Update by ID API')
 })
 
 //Delete by ID Method
-router.delete('/delete/:id', (request, response) => {
-    request.send('Delete by ID API')
+router.delete('/delete/:id', (req, res) => {
+    res.send('Delete by ID API')
 })
 
 module.exports = router;
