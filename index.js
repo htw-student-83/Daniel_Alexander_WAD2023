@@ -7,13 +7,17 @@ const routes = require('./routes/routes');
 const mongoString = process.env.DATABASE_URL_ALEX
 
 //mongoDB connection
+//setter for connection constant
 mongoose.connect(mongoString);
+//getter of connection constant
 const database = mongoose.connection;
 
+//on the connection with the DB - a listener for errors
 database.on('error', (error) => {
     console.log(error);
 });
 
+//once at the connection-start of the DB - message of it starting
 database.once('connected', () => {
     console.log('Database Connected');
 });

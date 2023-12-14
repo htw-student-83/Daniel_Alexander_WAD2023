@@ -97,6 +97,36 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
 
                     let inputLat = parseFloat(highestRankResult.lat);
                     let inputLon = parseFloat(highestRankResult.lon);
+                    /*
+                    * fetch('/api/loc', {
+                            method: 'Post',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                username: inputUsername,
+                                password: inputPassword,
+                            }),
+                        })
+                            .then(response => response.json())
+                            .then(user => handleLoginResponse(user))
+                            .catch(error => console.error('Error:', error));
+                    *--------------------------------------------------------
+                    * fetch('/api/loc', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                username: inputUsername,
+                                password: inputPassword,
+                            }),
+                        })
+                            .then(response => response.json())
+                            .then(user => handleLoginResponse(user))
+                            .catch(error => console.error('Error:', error));
+                    *
+                    * */
                     newListItem(inputLocationName, inputDescription, inputAddress,
                         inputPostCode, inputCityName, inputLat, inputLon, formType, ID);
                 } else {
