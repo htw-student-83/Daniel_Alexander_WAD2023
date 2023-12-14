@@ -4,7 +4,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
-const mongoString = process.env.DATABASE_URL_ALEX
+const mongoString = process.env.DATABASE_URL_DANIEL;
 
 //mongoDB connection
 //setter for connection constant

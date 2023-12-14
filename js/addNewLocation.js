@@ -99,32 +99,42 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
                     let inputLon = parseFloat(highestRankResult.lon);
                     /*
                     * fetch('/api/loc', {
-                            method: 'Post',
+                            method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                username: inputUsername,
-                                password: inputPassword,
+                                inputLocationName = document.getElementById('name-add').value;
+                                inputDescription = document.getElementById('description-add').value;
+                                inputAddress = document.getElementById('address-add').value;
+                                inputPostCode = document.getElementById('postCode-add').value;
+                                inputCityName = document.getElementById('city-add').value;
+                                name: inputLocationName,
+                                description: inputDescription,
+		                        address: inputAddress,
+                                postCode: inputPostCode,
+		                        city: inputCityName,
                             }),
                         })
                             .then(response => response.json())
-                            .then(user => handleLoginResponse(user))
+                            .then(location => getLocation(location)
                             .catch(error => console.error('Error:', error));
+                       }
                     *--------------------------------------------------------
-                    * fetch('/api/loc', {
+                    * function getLocation(location){
+                    *   fetch('/api/loc', {
                             method: 'GET',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                username: inputUsername,
-                                password: inputPassword,
+
                             }),
                         })
                             .then(response => response.json())
-                            .then(user => handleLoginResponse(user))
                             .catch(error => console.error('Error:', error));
+                    *   }
+                    * }
                     *
                     * */
                     newListItem(inputLocationName, inputDescription, inputAddress,
