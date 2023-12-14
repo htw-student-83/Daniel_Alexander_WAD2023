@@ -17,8 +17,15 @@ router.post('/users', async function (request, response) {
                 return response.status(401).json({ message: 'Invalid username or password' });
             }
 
-            request.session.user = user;
-            response.status(200).json(user);
+            // Exclude the password from the response
+            const userWithoutPassword = {
+                username: user.username,
+                firstname: user.firstname,
+                role: user.role,
+            };
+
+            request.session.user = userWithoutPassword;
+            response.status(200).json(userWithoutPassword);
         } catch (error) {
             response.status(500).json({
                 message: error.message
