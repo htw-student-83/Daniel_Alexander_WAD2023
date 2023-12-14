@@ -1,0 +1,25 @@
+{
+  "name": "daniel_alexander_wad2023",
+  "version": "1.0.2",
+  "description": "\"WebApp\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/htw-student-83/Daniel_Alexander_WAD2023.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/htw-student-83/Daniel_Alexander_WAD2023/issues"
+  },
+  "homepage": "https://github.com/htw-student-83/Daniel_Alexander_WAD2023#readme",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mongodb": "6.3"
+  }
+}
