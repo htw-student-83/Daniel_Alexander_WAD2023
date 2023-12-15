@@ -2,7 +2,7 @@ let loginAttemptsRemaining= 3;
 
 const eventHandlerLogin = function () {
     setAllNoneButLogin();
-    addDefaultLocation();
+    getAllLocations();
     document.getElementById("formLogin").onsubmit = getUserLoginInput;
 }
 

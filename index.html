@@ -69,31 +69,31 @@
 
                 <h1 class="add-message">Add new location</h1>
 
-                <form id="formAdd" method="POST" name="formAdd">
+                <form id="formAdd" action="/api/loc" method="POST" name="formAdd">
 
                     <label for="name-add"><b>Name:*</b></label>
-                    <input type="text" placeholder="" id="name-add" required>
+                    <input type="text" name="Name" placeholder="" id="name-add" required>
 
                     <label for="description-add"><b>Description:</b></label>
-                    <input type="text" placeholder="" id="description-add">
+                    <input type="text" name="Description" placeholder="" id="description-add">
 
                     <label for="address-add"><b>Address:*</b></label>
-                    <input type="text" placeholder="" id="address-add" required>
+                    <input type="text" name="Address" placeholder="" id="address-add" required>
 
                     <label for="postCode-add"><b>Postcode:*</b></label>
-                    <input type="text" placeholder="" id="postCode-add" required>
+                    <input type="text" name="Postcode" placeholder="" id="postCode-add" required>
 
                     <label for="city-add"><b>City:*</b></label>
-                    <select name="cityLocation" id="city-add">
+                    <select name="City" id="city-add">
                         <option>Berlin</option>
                         <option>Brandenburg</option>
                     </select>
 
                     <label for="lat-add"><b>Lat:</b></label>
-                    <input type="number" step="any" placeholder="" id="lat-add">
+                    <input type="number" name="Lat" step="any" placeholder="" id="lat-add">
 
                     <label for="lon-add"><b>Lon:</b></label>
-                    <input type="number" step="any" placeholder="" id="lon-add">
+                    <input type="number" name="Lon" step="any" placeholder="" id="lon-add">
 
                     <p class="requiredField">*: Fields are required!</p>
 
@@ -110,19 +110,19 @@
 
                 <h1 class="du-message">Delete/Update location</h1>
 
-                <form id="formDU" method="post" name="forDU">
+                <form id="formDU" action="/api/loc/" name="forDU">
 
                     <label for="name-du"><b>Name:</b></label>
-                    <input type="text" id="name-du" value="Edeka">
+                    <input type="text" id="name-du">
 
                     <label for="description-du"><b>Description:</b></label>
-                    <input type="text" id="description-du" value="Lebensmittelgeschäft">
+                    <input type="text" id="description-du">
 
                     <label for="address-du"><b>Address:</b></label>
-                    <input type="text" id="address-du" value="Friedrichstraße 27">
+                    <input type="text" id="address-du">
 
                     <label for="postCode-du"><b>Postcode:</b></label>
-                    <input type="text" id="postCode-du" value="10117">
+                    <input type="text" id="postCode-du">
 
                     <label for="city-du"><b>City:</b></label>
                     <select name="city-du" id="city-du">
@@ -131,10 +131,10 @@
                     </select>
 
                     <label for="lat-du"><b>Lat:</b></label>
-                    <input type="number" step="any" id="lat-du" value="52.52028288709338">
+                    <input type="number" step="any" id="lat-du">
 
                     <label for="lon-du"><b>Lon:</b></label>
-                    <input type="number" step="any" id="lon-du" value="13.38685286856809">
+                    <input type="number" step="any" id="lon-du">
 
                     <p class="requiredField">*: Fields are required!</p>
 
@@ -158,6 +158,5 @@
     <script src="/duLocation.js"></script>
     <script src="/addNewLocation.js"></script>
     <script src="/displaySetter.js"></script>
-    <script src="/currentLocationsOfBerlin.js"></script>
 </body>
 </html>

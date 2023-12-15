@@ -1,33 +1,37 @@
 const mongoose = require('mongoose');
 
 const locationSchema = new mongoose.Schema({
-   name:{
+   Name:{
        required: true,
-       type: String
+       type: String,
+       trim: true
    },
-   description:{
-       required: false,
-       type: String
+   Description:{
+       type: String,
+       trim: true
    },
-   address:{
+   Address:{
        required: true,
-       type: String
+       type: String,
+       trim: true
    },
-   postCode:{
+   Postcode:{
        required: true,
-       type: Number
+       type: String,
+       trim: true
    },
-   city:{
+   City:{
        required: true,
-       type: String
+       type: String,
+       trim: true
    },
-   lat:{
-       required: false,
-       type: Number
+   Lat:{
+       type: Number,
+       trim: true
    },
-   lon:{
-       required: false,
-       type: Number
+   Lon:{
+       type: Number,
+       trim: true
    }
 });
 

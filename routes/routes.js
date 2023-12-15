@@ -1,5 +1,5 @@
 const express = require('express');
-const locationModel = require('../model/locationModel.js');
+const LocationModel = require('../model/locationModel.js');
 const UserModel = require('../model/userModel.js');
 const router = express.Router();
 
@@ -39,29 +39,57 @@ router.post('/users', async function (request, response) {
 
 //loc endpoints
 
-//Post Method
-router.post('/post', (req, res) => {
-    res.send('Post API')
+//Post location -> Add
+router.post('/loc', async function (request, response) {
+
+    console.log(request.body.Name)
+
+    const locationData = new LocationModel({
+        Name: request.body.Name,
+        Description: request.body.Description,
+        Address: request.body.Address,
+        Postcode: request.body.Postcode,
+        City: request.body.City,
+        Lat: request.body.Lat,
+        Lon: request.body.Lon,
+    })
+
+    try {
+        const locationToSave = await locationData.save();
+
+        response.status(201).json(locationToSave)
+    }
+    catch (error) {
+        response.status(400).json({
+            message: error.message
+        })
+    }
+});
+
+//Get all locations -> Address List
+router.get('/loc', async function (request, response) {
+    try{
+        const locationsData = await LocationModel.find();
+        response.status(200).json(locationsData)
+    }
+    catch(error){
+        response.status(500).json({message: error.message})
+    }
+});
+
+//Get location by ID  -> Aufruf (Delete/Update-Screen)
+router.get('/loc/:id', (request, response) => {
+    response.send('Get by ID API')
 })
 
-//Get all Method
-router.get('/getAll', (req, res) => {
-    res.send('Get All API')
+//Update location by ID
+router.patch('/loc/:id', (request, response) => {
+    response.send('Update by ID API')
 })
 
-//Get by ID Method
-router.get('/getOne/:id', (req, res) => {
-    res.send('Get by ID API')
-})
-
-//Update by ID Method
-router.patch('/update/:id', (req, res) => {
-    res.send('Update by ID API')
-})
-
-//Delete by ID Method
-router.delete('/delete/:id', (req, res) => {
-    res.send('Delete by ID API')
+//Delete location by ID
+router.delete('/loc/:id', (request, response) => {
+    response.send('Delete by ID API')
 })
 
 module.exports = router;
