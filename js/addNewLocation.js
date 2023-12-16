@@ -11,7 +11,7 @@ function updateMapMarkers(locations) {
     Object.values(markers).forEach(marker => {
         map.removeLayer(marker);
     });
-    markers = {}; // Clear the markers object
+    markers = {}; // Clear the marker object
 
     // Add markers for each location
     Object.values(locations).forEach(locs => {
@@ -61,7 +61,7 @@ document.getElementById("formAdd").onsubmit = function (e) {
 };
 
 //The data, which we get from the user
-function getNewLocationData(e, location){
+function getNewLocationData(e, locationID){
     e.preventDefault()
     let inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName;
 
@@ -73,11 +73,11 @@ function getNewLocationData(e, location){
         inputCityName = document.getElementById('city-add').value;
     }
     if(e.submitter.id === "duUpdateBtn"){
-        inputLocationName = location.Name;
-        inputDescription = location.Description;
-        inputAddress = location.Address;
-        inputPostCode = location.Postcode;
-        inputCityName = location.City;
+        inputLocationName = document.getElementById('name-du').value;
+        inputDescription = document.getElementById('description-du').value;
+        inputAddress = document.getElementById('address-du').value;
+        inputPostCode = document.getElementById('postCode-du').value;
+        inputCityName = document.getElementById('city-du').value;
     }
 
     if (!hasStreetAndNumber(inputAddress)) {
@@ -85,12 +85,12 @@ function getNewLocationData(e, location){
         return; // Prevent further execution of the function
     }
 
-    getNewGeoData(e, location, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName);
+    getNewGeoData(e, locationID, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName);
 
 }
 
 
-function getNewGeoData(e, location, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName){
+function getNewGeoData(e, locationID, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName){
     // Use Nominatim Geocoding API to get latitude and longitude
     let nominatimUrl =
         `https://nominatim.openstreetmap.org/search?addressdetails=1&format=json&countrycodes=de&q=
@@ -98,7 +98,7 @@ function getNewGeoData(e, location, inputLocationName, inputDescription, inputAd
         ${encodeURIComponent(inputCityName)},
         ${encodeURIComponent(inputAddress)}`;
 
-    //based on the url we send a request to a webservice to get the lat and lon
+    //based on the url, we send a request to a webservice to get the lat and lon
     fetch(nominatimUrl)
         .then(response => response.json())
         .then(data => {
@@ -136,24 +136,24 @@ function getNewGeoData(e, location, inputLocationName, inputDescription, inputAd
                             .catch(error => console.error('Error:', error));
                     }
                     if(e.submitter.id === "duUpdateBtn"){
-                        fetch(`/api/loc/${location._id}`, {
+                        deleteLocation(e, locationID);
+                        fetch(`/api/loc/${locationID}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
                             },
                             body: JSON.stringify({
-                                Name: document.getElementById("name-du").value,
-                                Description: document.getElementById("description-du").value,
-                                Address: document.getElementById("address-du").value,
-                                Postcode: document.getElementById("postCode-du").value,
-                                City: document.getElementById("city-du").value,
+                                Name: inputLocationName,
+                                Description: inputDescription,
+                                Address: inputAddress,
+                                Postcode: inputPostCode,
+                                City: inputCityName,
                                 Lat: inputLat,
                                 Lon: inputLon,
                             }),
                         })
                             .catch(error => console.error('Error:', error))
-
-                        getOneLocationAdd(location._id);
+                        getOneLocationAdd(locationID);
                     }
 
                 } else {

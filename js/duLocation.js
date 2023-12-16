@@ -1,5 +1,5 @@
-function getOneLocationDU(objectID){
-       fetch(`/api/loc/${objectID}`, {
+function getOneLocationDU(locationID){
+       fetch(`/api/loc/${locationID}`, {
            method: 'GET',
            headers: {
                'Content-Type': 'application/json',
@@ -20,47 +20,48 @@ function fillDUForm(location){
     document.getElementById("lon-du").value = location.Lon;
 
     document.getElementById("formDU").onsubmit = function (e){
-        handleDUFormSubmission(e, location)
+        handleDUFormSubmission(e, location._id)
     }
 }
 
-function handleDUFormSubmission(e, location) {
+function handleDUFormSubmission(e, locationID) {
     // Prevent the default form submission
     e.preventDefault();
 
     if (e.submitter.id === "duDeleteBtn") {
-        deleteLocation(location);
+        deleteLocation(e, locationID);
     } else if (e.submitter.id === "duUpdateBtn") {
-        updateLocation(e, location);
+        updateLocation(e, locationID);
     }
 }
 
-function deleteLocation(location) {
+function deleteLocation(e, locationID) {
     // Assuming locationId corresponds to the ID property in the location object
-    if (markers[location._id]) {
-        map.removeLayer(markers[location._id]);
-        delete markers[location._id];
+    if (markers[locationID]) {
+        map.removeLayer(markers[locationID]);
+        delete markers[locationID];
 
         // Remove the corresponding list item
-        let listItem = document.querySelector(`[data-id="${location._id}"]`);
+        let listItem = document.querySelector(`[data-id="${locationID}"]`);
         if (listItem) {
             listItem.remove();
         }
     }
 
-    fetch(`/api/loc/${location._id}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-        .catch(error => console.error('Error:', error));
+    if(e.submitter.id === "duDeleteBtn"){
+        fetch(`/api/loc/${locationID}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .catch(error => console.error('Error:', error));
+    }
 
     // Return to the main view
     fromDUToMain();
 }
 
-function updateLocation(e, location){
-    getNewLocationData(e, location);
-    fromDUToMain();
+function updateLocation(e, locationID){
+    getNewLocationData(e, locationID);
 }
