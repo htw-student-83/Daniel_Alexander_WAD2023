@@ -110,31 +110,31 @@
 
                 <h1 class="du-message">Delete/Update location</h1>
 
-                <form id="formDU" action="/api/loc/" name="forDU">
+                <form id="formDU" action="/api/loc/:id" name="formDU">
 
                     <label for="name-du"><b>Name:</b></label>
-                    <input type="text" id="name-du">
+                    <input type="text" name="Name" id="name-du">
 
                     <label for="description-du"><b>Description:</b></label>
-                    <input type="text" id="description-du">
+                    <input type="text" name="Description" id="description-du">
 
                     <label for="address-du"><b>Address:</b></label>
-                    <input type="text" id="address-du">
+                    <input type="text" name="Address" id="address-du">
 
                     <label for="postCode-du"><b>Postcode:</b></label>
-                    <input type="text" id="postCode-du">
+                    <input type="text" name="Postcode" id="postCode-du">
 
                     <label for="city-du"><b>City:</b></label>
-                    <select name="city-du" id="city-du">
+                    <select name="City" id="city-du">
                         <option>Berlin</option>
                         <option>Brandenburg</option>
                     </select>
 
                     <label for="lat-du"><b>Lat:</b></label>
-                    <input type="number" step="any" id="lat-du">
+                    <input type="number" name="Lat" step="any" id="lat-du">
 
                     <label for="lon-du"><b>Lon:</b></label>
-                    <input type="number" step="any" id="lon-du">
+                    <input type="number" name="Lon" step="any" id="lon-du">
 
                     <p class="requiredField">*: Fields are required!</p>
 

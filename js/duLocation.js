@@ -1,64 +1,66 @@
-function fillDUForm(objectID){
-    console.log("fillDuForm:" + objectID);
-    document.getElementById("name-du").value = listOfAllLocations[objectID].Name;
-    document.getElementById("description-du").value = listOfAllLocations[objectID].Description;
-    document.getElementById("address-du").value = listOfAllLocations[objectID].Address;
-    document.getElementById("postCode-du").value = listOfAllLocations[objectID].Postcode;
-    document.getElementById("city-du").value = listOfAllLocations[objectID].City;
-    document.getElementById("lat-du").value = listOfAllLocations[objectID].Lat;
-    document.getElementById("lon-du").value = listOfAllLocations[objectID].Lon;
+function getOneLocationDU(objectID){
+       fetch(`/api/loc/${objectID}`, {
+           method: 'GET',
+           headers: {
+               'Content-Type': 'application/json',
+           },
+       })
+           .then(response => response.json())
+           .then(location => fillDUForm(location))
+           .catch(error => console.error('Error:', error))
+}
 
-    // Check if the event listener is already added
-    if (!document.getElementById("formDU").hasEventListener) {
-        // Define a named function for the event listener
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const updatedObjectID = objectID;  // Capture the current objectID
-            handleDUFormSubmission(e, updatedObjectID);
-        }
+function fillDUForm(location){
+    document.getElementById("name-du").value = location.Name;
+    document.getElementById("description-du").value = location.Description;
+    document.getElementById("address-du").value = location.Address;
+    document.getElementById("postCode-du").value = location.Postcode;
+    document.getElementById("city-du").value = location.City;
+    document.getElementById("lat-du").value = location.Lat;
+    document.getElementById("lon-du").value = location.Lon;
 
-        // Add a new submit event listener with the named function
-        document.getElementById("formDU").addEventListener("submit", handleFormSubmit);
-
-        // Set the flag to indicate that the event listener is added
-        document.getElementById("formDU").hasEventListener = true;
-    } else {
-        // If the event listener is already added, update the stored objectID
-        document.getElementById("formDU").updatedObjectID = objectID;
+    document.getElementById("formDU").onsubmit = function (e){
+        handleDUFormSubmission(e, location)
     }
 }
 
-function handleDUFormSubmission(e, objectID) {
+function handleDUFormSubmission(e, location) {
     // Prevent the default form submission
     e.preventDefault();
 
-    // Get the stored updatedObjectID or use the provided objectID
-    const updatedObjectID = document.getElementById("formDU").updatedObjectID || objectID;
-
     if (e.submitter.id === "duDeleteBtn") {
-        deleteLocation(updatedObjectID);
+        deleteLocation(location);
     } else if (e.submitter.id === "duUpdateBtn") {
-        updateLocation(e, updatedObjectID);
+        updateLocation(e, location);
     }
 }
 
-function deleteLocation(locationId) {
+function deleteLocation(location) {
     // Assuming locationId corresponds to the ID property in the location object
-    if (markers[locationId]) {
-        map.removeLayer(markers[locationId]);
-        delete markers[locationId];
-        delete listOfAllLocations[locationId];
+    if (markers[location._id]) {
+        map.removeLayer(markers[location._id]);
+        delete markers[location._id];
 
         // Remove the corresponding list item
-        let listItem = document.querySelector(`[data-id="${locationId}"]`);
+        let listItem = document.querySelector(`[data-id="${location._id}"]`);
         if (listItem) {
             listItem.remove();
         }
     }
+
+    fetch(`/api/loc/${location._id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .catch(error => console.error('Error:', error));
+
     // Return to the main view
     fromDUToMain();
 }
 
-function updateLocation(e, locationId){
-    getNewLocationData(e, "update", locationId);
+function updateLocation(e, location){
+    getNewLocationData(e, location);
+    fromDUToMain();
 }

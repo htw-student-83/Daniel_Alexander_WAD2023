@@ -21,6 +21,7 @@ function updateMapMarkers(locations) {
     });
 }
 
+// gets all locations from the DB
 function getAllLocations(){
     fetch('/api/loc', {
         method: 'GET',
@@ -33,6 +34,7 @@ function getAllLocations(){
         .catch(error => console.error('Error:', error))
 }
 
+//adds locations to the list from the DB
 function addDBLocations(locations){
     // Add markers for each location
     Object.values(locations).forEach(locs => {
@@ -42,31 +44,53 @@ function addDBLocations(locations){
     });
 }
 
+function getOneLocationAdd(objectID){
+    fetch(`/api/loc/${objectID}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => response.json())
+        .then(location => newListItem(location))
+        .catch(error => console.error('Error:', error))
+}
+
 document.getElementById("formAdd").onsubmit = function (e) {
     getNewLocationData(e);
 };
 
 //The data, which we get from the user
-function getNewLocationData(e){
+function getNewLocationData(e, location){
     e.preventDefault()
     let inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName;
 
-    inputLocationName = document.getElementById('name-add').value;
-    inputDescription = document.getElementById('description-add').value;
-    inputAddress = document.getElementById('address-add').value;
-    inputPostCode = document.getElementById('postCode-add').value;
-    inputCityName = document.getElementById('city-add').value;
+    if(e.submitter.id === "addLocationButton"){
+        inputLocationName = document.getElementById('name-add').value;
+        inputDescription = document.getElementById('description-add').value;
+        inputAddress = document.getElementById('address-add').value;
+        inputPostCode = document.getElementById('postCode-add').value;
+        inputCityName = document.getElementById('city-add').value;
+    }
+    if(e.submitter.id === "duUpdateBtn"){
+        inputLocationName = location.Name;
+        inputDescription = location.Description;
+        inputAddress = location.Address;
+        inputPostCode = location.Postcode;
+        inputCityName = location.City;
+    }
 
     if (!hasStreetAndNumber(inputAddress)) {
         alert('Please make sure to include both the street name and number in the address field.');
         return; // Prevent further execution of the function
     }
 
-    getNewGeoData(inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName);
+    getNewGeoData(e, location, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName);
 
 }
 
-function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName){
+
+function getNewGeoData(e, location, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName){
     // Use Nominatim Geocoding API to get latitude and longitude
     let nominatimUrl =
         `https://nominatim.openstreetmap.org/search?addressdetails=1&format=json&countrycodes=de&q=
@@ -74,6 +98,7 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
         ${encodeURIComponent(inputCityName)},
         ${encodeURIComponent(inputAddress)}`;
 
+    //based on the url we send a request to a webservice to get the lat and lon
     fetch(nominatimUrl)
         .then(response => response.json())
         .then(data => {
@@ -89,24 +114,48 @@ function getNewGeoData(inputLocationName, inputDescription, inputAddress, inputP
                     let inputLat = parseFloat(highestRankResult.lat);
                     let inputLon = parseFloat(highestRankResult.lon);
 
-                    fetch('/api/loc', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            Name: inputLocationName,
-                            Description: inputDescription,
-                            Address: inputAddress,
-                            Postcode: inputPostCode,
-                            City: inputCityName,
-                            Lat: inputLat,
-                            Lon: inputLon,
-                        }),
-                    })
-                        .then(response => response.json())
-                        .then(location => newListItem(location))
-                        .catch(error => console.error('Error:', error));
+                    //new location data will be sent to the server.
+                    if(e.submitter.id === "addLocationButton"){
+                        fetch('/api/loc', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                Name: inputLocationName,
+                                Description: inputDescription,
+                                Address: inputAddress,
+                                Postcode: inputPostCode,
+                                City: inputCityName,
+                                Lat: inputLat,
+                                Lon: inputLon,
+                            }),
+                        })
+                            .then(response => response.json())
+                            .then(location => newListItem(location))
+                            .catch(error => console.error('Error:', error));
+                    }
+                    if(e.submitter.id === "duUpdateBtn"){
+                        fetch(`/api/loc/${location._id}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                Name: document.getElementById("name-du").value,
+                                Description: document.getElementById("description-du").value,
+                                Address: document.getElementById("address-du").value,
+                                Postcode: document.getElementById("postCode-du").value,
+                                City: document.getElementById("city-du").value,
+                                Lat: inputLat,
+                                Lon: inputLon,
+                            }),
+                        })
+                            .catch(error => console.error('Error:', error))
+
+                        getOneLocationAdd(location._id);
+                    }
+
                 } else {
                     // Handle low place_rank, which may indicate an inaccurate or ambiguous result
                     alert('Please provide a more specific and accurate address.');

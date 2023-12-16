@@ -53,7 +53,7 @@ document.getElementById("address-list").onclick = fromMainToDU;
 function fromMainToDU(e){
     setDisplay('main-container', false);
     setDisplay('du-container', true);
-    fillDUForm(e.target.dataset.id);
+    getOneLocationDU(e.target.dataset.id);
 }
 
 document.getElementById("duCancelBtn").onclick = fromDUToMain;

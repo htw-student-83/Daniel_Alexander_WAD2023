@@ -41,9 +41,6 @@ router.post('/users', async function (request, response) {
 
 //Post location -> Add
 router.post('/loc', async function (request, response) {
-
-    console.log(request.body.Name)
-
     const locationData = new LocationModel({
         Name: request.body.Name,
         Description: request.body.Description,
@@ -78,18 +75,36 @@ router.get('/loc', async function (request, response) {
 });
 
 //Get location by ID  -> Aufruf (Delete/Update-Screen)
-router.get('/loc/:id', (request, response) => {
-    response.send('Get by ID API')
+router.get('/loc/:id', async function (request, response) {
+    try{
+        const locationData = await LocationModel.findById(request.params.id);
+        response.status(200).json(locationData)
+    }
+    catch(error){
+        response.status(500).json({message: error.message})
+    }
 })
 
 //Update location by ID
-router.patch('/loc/:id', (request, response) => {
-    response.send('Update by ID API')
+router.put('/loc/:id', async function (request, response) {
+    try {
+        await LocationModel.findByIdAndUpdate(request.params.id, request.body)
+        response.status(204).end();
+    }
+    catch (error) {
+        response.status(400).json({ message: error.message })
+    }
 })
 
 //Delete location by ID
-router.delete('/loc/:id', (request, response) => {
-    response.send('Delete by ID API')
+router.delete('/loc/:id', async function (request, response) {
+    try {
+        await LocationModel.findByIdAndDelete(request.params.id)
+        response.status(204).end();
+    }
+    catch (error) {
+        response.status(400).json({ message: error.message })
+    }
 })
 
 module.exports = router;
