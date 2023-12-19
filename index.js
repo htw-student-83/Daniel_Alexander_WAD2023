@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
-const routes = require('./routes/routes');
+const routes = require('./Backend/routes/routes');
 const mongoString = process.env.DATABASE_URL_DANIEL;
 
 //mongoDB connection
@@ -30,12 +30,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //import directories for html
-app.use(express.static(path.join(__dirname + '/css')));
-app.use(express.static(path.join(__dirname + '/image')));
-app.use(express.static(path.join(__dirname + '/js')));
+app.use(express.static(path.join(__dirname + '/Frontend/css')));
+app.use(express.static(path.join(__dirname + '/Frontend/image')));
+app.use(express.static(path.join(__dirname + '/Frontend/js')));
 
 app.get('/', function (request, response){
-    response.sendFile(path.join(__dirname + '/index.html'));
+    response.sendFile(path.join(__dirname + '/Frontend/html/index.html'));
 });
 
 //set api

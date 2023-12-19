@@ -44,18 +44,6 @@ function addDBLocations(locations){
     });
 }
 
-function getOneLocationAdd(objectID){
-    fetch(`/api/loc/${objectID}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-        .then(response => response.json())
-        .then(location => newListItem(location))
-        .catch(error => console.error('Error:', error))
-}
-
 document.getElementById("formAdd").onsubmit = function (e) {
     getNewLocationData(e);
 };
@@ -152,8 +140,9 @@ function getNewGeoData(e, locationID, inputLocationName, inputDescription, input
                                 Lon: inputLon,
                             }),
                         })
+                            .then(response => response.json())
+                            .then(location => newListItem(location))
                             .catch(error => console.error('Error:', error))
-                        getOneLocationAdd(locationID);
                     }
 
                 } else {
@@ -199,6 +188,7 @@ function isCityInResponse(inputCity, responseCity) {
 let markers = [];
 
 function newListItem(location){
+    console.log(location)
     // Exclude the ID, Lat, Lon from the displayed information
     let nonEmptyValues = Object.entries(location)
         .filter(([key, value]) => key !== '_id' && key !== 'Lon' && key !== 'Lat' && typeof value === 'string' && value.trim() !== '')

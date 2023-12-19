@@ -88,8 +88,10 @@ router.get('/loc/:id', async function (request, response) {
 //Update location by ID
 router.put('/loc/:id', async function (request, response) {
     try {
-        await LocationModel.findByIdAndUpdate(request.params.id, request.body)
-        response.status(204).end();
+        const locationData = await LocationModel.findByIdAndUpdate(request.params.id, request.body, {
+            new: true
+        });
+        response.status(201).json(locationData);
     }
     catch (error) {
         response.status(400).json({ message: error.message })
