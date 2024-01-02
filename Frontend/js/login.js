@@ -1,20 +1,8 @@
-class User{
-    constructor(username, password, role) {
-        this.username = username;
-        this.password = password;
-        this.role = role;
-    }
-}
-
-//User data as objects
-let admin = new User("admina", "a", "admin");
-let guest = new User("normalo", "g", "non-admin");
-
 let loginAttemptsRemaining= 3;
 
 const eventHandlerLogin = function () {
     setAllNoneButLogin();
-    addDefaultLocation();
+    getAllLocations();
     document.getElementById("formLogin").onsubmit = getUserLoginInput;
 }
 
@@ -23,32 +11,42 @@ function resetAttemptCount(){
 }
 
 //The data, which we get from the user
-function getUserLoginInput(e){
+// Assuming you're using Fetch API
+function getUserLoginInput(e) {
     e.preventDefault();
     let inputUsername = document.getElementById('username-login').value;
     let inputPassword = document.getElementById('password-login').value;
-    loginCheck(inputUsername, inputPassword)
+
+    // Send a POST request to your server
+    fetch('/api/users', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            username: inputUsername,
+            password: inputPassword,
+        }),
+    })
+        .then(response => response.json())
+        .then(user => handleLoginResponse(user))
+        .catch(error => console.error('Error:', error));
 }
 
 //The data from the user will check for a successful login
-function loginCheck(inputUsername, inputPassword){
-      if(inputUsername && inputPassword){
-        if(inputUsername === guest.username && inputPassword === guest.password){
-            handleSuccessfulLogin(false, inputUsername);
-        }
-        else if(inputUsername === admin.username && inputPassword === admin.password){
-            handleSuccessfulLogin(true, inputUsername);
+function handleLoginResponse(user){
+      if(user && user.role && user.firstname){
+          handleSuccessfulLogin(user.role, user.firstname);
         }else{
             handleFailedLogin();
         }
-    }
 }
 
 // Handle a successful login
-function handleSuccessfulLogin(isAdmin, inputUsername) {
-    buttonSetter(isAdmin);
+function handleSuccessfulLogin(role, firstname) {
+    buttonSetter(role);
     fromLoginToMain();
-    document.getElementById('userName').innerHTML = `, ${inputUsername}`;
+    document.getElementById('userName').innerHTML = `, ${firstname}`;
 }
 
 // Handle a failed login attempt

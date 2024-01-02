@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+    <link rel="stylesheet" href="/style.css">
     <title>Klimaneutrale Luft in Berlin/Brandenburg</title>
 </head>
 <body>
     <div class="container">
 
         <header id="web-name">
-            <img id="image" src="../image/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
+            <img id="image" src="/klimalogo.jpeg" width="120px" height="90px" alt="klimalogo">
             <h1>Klimaneutrale Luft in Berlin/Brandenburg</h1>
         </header>
 
@@ -21,13 +21,13 @@
 
                     <h2 class="login-message">Login</h2>
 
-                    <form id="formLogin" method="GET" name="formLogin">
+                    <form id="formLogin" action="/api/users" method="POST" name="formLogin">
 
                         <label for="username-login"><b>Username:*</b></label>
-                        <input type="text" placeholder="Max Mustermann" id="username-login" required value="" autofocus>
+                        <input type="text" name="username" placeholder="Max Mustermann" id="username-login" required autofocus>
 
                         <label for="password-login"><b>Password:*</b></label>
-                        <input type="password" placeholder="password" id="password-login" required value="" autofocus>
+                        <input type="password" name="password" placeholder="password" id="password-login" required autofocus>
 
                         <p class="requiredField">*: Fields are required!</p>
 
@@ -69,31 +69,31 @@
 
                 <h1 class="add-message">Add new location</h1>
 
-                <form id="formAdd" method="POST" name="formAdd">
+                <form id="formAdd" action="/api/loc" method="POST" name="formAdd">
 
                     <label for="name-add"><b>Name:*</b></label>
-                    <input type="text" placeholder="" id="name-add" required>
+                    <input type="text" name="Name" placeholder="" id="name-add" required>
 
                     <label for="description-add"><b>Description:</b></label>
-                    <input type="text" placeholder="" id="description-add">
+                    <input type="text" name="Description" placeholder="" id="description-add">
 
                     <label for="address-add"><b>Address:*</b></label>
-                    <input type="text" placeholder="" id="address-add" required>
+                    <input type="text" name="Address" placeholder="" id="address-add" required>
 
                     <label for="postCode-add"><b>Postcode:*</b></label>
-                    <input type="text" placeholder="" id="postCode-add" required>
+                    <input type="text" name="Postcode" placeholder="" id="postCode-add" required>
 
                     <label for="city-add"><b>City:*</b></label>
-                    <select name="cityLocation" id="city-add">
+                    <select name="City" id="city-add">
                         <option>Berlin</option>
                         <option>Brandenburg</option>
                     </select>
 
                     <label for="lat-add"><b>Lat:</b></label>
-                    <input type="number" step="any" placeholder="" id="lat-add">
+                    <input type="number" name="Lat" step="any" placeholder="" id="lat-add">
 
                     <label for="lon-add"><b>Lon:</b></label>
-                    <input type="number" step="any" placeholder="" id="lon-add">
+                    <input type="number" name="Lon" step="any" placeholder="" id="lon-add">
 
                     <p class="requiredField">*: Fields are required!</p>
 
@@ -110,31 +110,31 @@
 
                 <h1 class="du-message">Delete/Update location</h1>
 
-                <form id="formDU" method="post" name="forDU">
+                <form id="formDU" action="/api/loc/:id" name="formDU">
 
                     <label for="name-du"><b>Name:</b></label>
-                    <input type="text" id="name-du" value="Edeka">
+                    <input type="text" name="Name" id="name-du">
 
                     <label for="description-du"><b>Description:</b></label>
-                    <input type="text" id="description-du" value="Lebensmittelgeschäft">
+                    <input type="text" name="Description" id="description-du">
 
                     <label for="address-du"><b>Address:</b></label>
-                    <input type="text" id="address-du" value="Friedrichstraße 27">
+                    <input type="text" name="Address" id="address-du">
 
                     <label for="postCode-du"><b>Postcode:</b></label>
-                    <input type="text" id="postCode-du" value="10117">
+                    <input type="text" name="Postcode" id="postCode-du">
 
                     <label for="city-du"><b>City:</b></label>
-                    <select name="city-du" id="city-du">
+                    <select name="City" id="city-du">
                         <option>Berlin</option>
                         <option>Brandenburg</option>
                     </select>
 
                     <label for="lat-du"><b>Lat:</b></label>
-                    <input type="number" step="any" id="lat-du" value="52.52028288709338">
+                    <input type="number" name="Lat" step="any" id="lat-du">
 
                     <label for="lon-du"><b>Lon:</b></label>
-                    <input type="number" step="any" id="lon-du" value="13.38685286856809">
+                    <input type="number" name="Lon" step="any" id="lon-du">
 
                     <p class="requiredField">*: Fields are required!</p>
 
@@ -154,10 +154,9 @@
         </footer>
     </div>
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-    <script src="../js/login.js"></script>
-    <script src="../js/duLocation.js"></script>
-    <script src="../js/addNewLocation.js"></script>
-    <script src="../js/displaySetter.js"></script>
-    <script src="../js/currentLocationsOfBerlin.js"></script>
+    <script src="/login.js"></script>
+    <script src="/duLocation.js"></script>
+    <script src="/addNewLocation.js"></script>
+    <script src="/displaySetter.js"></script>
 </body>
 </html>
