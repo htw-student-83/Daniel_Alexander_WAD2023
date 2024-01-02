@@ -1,11 +1,12 @@
 ## Daniel_Alexander_WAD2023: Klimaneutrale Luft in Berlin/Brandenburg
 
 The app was developed as part of a university project.
-It is a simple single page application with a login page, a main page containing a Leaflet-Map and a list of addresses, a form to for adding addresses and a form for deleting or updating addresses. 
+It is a simple single page application with a login page, a main page containing a Leaflet-Map and a list of addresses, a form for adding addresses and a form for deleting or updating addresses. 
 All the data represented on the website is stored on a MongoDB database, which is being accessed via a node.js backend server.
 
 ## Requirements
 
+* Being a student or a teacher at the HTW
 * Node v20.10.0
 * Git
 
