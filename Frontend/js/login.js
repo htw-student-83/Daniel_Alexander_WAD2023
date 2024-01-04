@@ -12,8 +12,8 @@ function resetAttemptCount(){
 
 //The data, which we get from the user
 // Assuming you're using Fetch API
-function getUserLoginInput(e) {
-    e.preventDefault();
+function getUserLoginInput(event) {
+    event.preventDefault();
     let inputUsername = document.getElementById('username-login').value;
     let inputPassword = document.getElementById('password-login').value;
 

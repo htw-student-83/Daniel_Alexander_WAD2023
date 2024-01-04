@@ -50,10 +50,10 @@ function fromAddToMain(){
 
 document.getElementById("address-list").onclick = fromMainToDU;
 
-function fromMainToDU(e){
+function fromMainToDU(event){
     setDisplay('main-container', false);
     setDisplay('du-container', true);
-    getOneLocationDU(e.target.dataset.id);
+    getOneLocationDU(event.target.dataset.id);
 }
 
 document.getElementById("duCancelBtn").onclick = fromDUToMain;

@@ -44,23 +44,23 @@ function addDBLocations(locations){
     });
 }
 
-document.getElementById("formAdd").onsubmit = function (e) {
-    getNewLocationData(e);
+document.getElementById("formAdd").onsubmit = function (event) {
+    getNewLocationData(event);
 };
 
 //The data, which we get from the user
-function getNewLocationData(e, locationID){
-    e.preventDefault()
+function getNewLocationData(event, locationID){
+    event.preventDefault()
     let inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName;
 
-    if(e.submitter.id === "addLocationButton"){
+    if(event.submitter.id === "addLocationButton"){
         inputLocationName = document.getElementById('name-add').value;
         inputDescription = document.getElementById('description-add').value;
         inputAddress = document.getElementById('address-add').value;
         inputPostCode = document.getElementById('postCode-add').value;
         inputCityName = document.getElementById('city-add').value;
     }
-    if(e.submitter.id === "duUpdateBtn"){
+    if(event.submitter.id === "duUpdateBtn"){
         inputLocationName = document.getElementById('name-du').value;
         inputDescription = document.getElementById('description-du').value;
         inputAddress = document.getElementById('address-du').value;
@@ -73,12 +73,12 @@ function getNewLocationData(e, locationID){
         return; // Prevent further execution of the function
     }
 
-    getNewGeoData(e, locationID, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName);
+    getNewGeoData(event, locationID, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName);
 
 }
 
 
-function getNewGeoData(e, locationID, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName){
+function getNewGeoData(event, locationID, inputLocationName, inputDescription, inputAddress, inputPostCode, inputCityName){
     // Use Nominatim Geocoding API to get latitude and longitude
     let nominatimUrl =
         `https://nominatim.openstreetmap.org/search?addressdetails=1&format=json&countrycodes=de&q=
@@ -103,7 +103,7 @@ function getNewGeoData(e, locationID, inputLocationName, inputDescription, input
                     let inputLon = parseFloat(highestRankResult.lon);
 
                     //new location data will be sent to the server.
-                    if(e.submitter.id === "addLocationButton"){
+                    if(event.submitter.id === "addLocationButton"){
                         fetch('/api/loc', {
                             method: 'POST',
                             headers: {
@@ -123,8 +123,8 @@ function getNewGeoData(e, locationID, inputLocationName, inputDescription, input
                             .then(location => newListItem(location))
                             .catch(error => console.error('Error:', error));
                     }
-                    if(e.submitter.id === "duUpdateBtn"){
-                        deleteLocation(e, locationID);
+                    if(event.submitter.id === "duUpdateBtn"){
+                        deleteLocation(event, locationID);
                         fetch(`/api/loc/${locationID}`, {
                             method: 'PUT',
                             headers: {
