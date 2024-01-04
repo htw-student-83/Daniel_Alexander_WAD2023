@@ -19,23 +19,23 @@ function fillDUForm(location){
     document.getElementById("lat-du").value = location.Lat;
     document.getElementById("lon-du").value = location.Lon;
 
-    document.getElementById("formDU").onsubmit = function (e){
-        handleDUFormSubmission(e, location._id)
+    document.getElementById("formDU").onsubmit = function (event){
+        handleDUFormSubmission(event, location._id)
     }
 }
 
-function handleDUFormSubmission(e, locationID) {
+function handleDUFormSubmission(event, locationID) {
     // Prevent the default form submission
-    e.preventDefault();
+    event.preventDefault();
 
-    if (e.submitter.id === "duDeleteBtn") {
-        deleteLocation(e, locationID);
-    } else if (e.submitter.id === "duUpdateBtn") {
-        updateLocation(e, locationID);
+    if (event.submitter.id === "duDeleteBtn") {
+        deleteLocation(event, locationID);
+    } else if (event.submitter.id === "duUpdateBtn") {
+        updateLocation(event, locationID);
     }
 }
 
-function deleteLocation(e, locationID) {
+function deleteLocation(event, locationID) {
     // Assuming locationId corresponds to the ID property in the location object
     if (markers[locationID]) {
         map.removeLayer(markers[locationID]);
@@ -48,7 +48,7 @@ function deleteLocation(e, locationID) {
         }
     }
 
-    if(e.submitter.id === "duDeleteBtn"){
+    if(event.submitter.id === "duDeleteBtn"){
         fetch(`/api/loc/${locationID}`, {
             method: 'DELETE',
             headers: {
@@ -62,6 +62,6 @@ function deleteLocation(e, locationID) {
     fromDUToMain();
 }
 
-function updateLocation(e, locationID){
-    getNewLocationData(e, locationID);
+function updateLocation(event, locationID){
+    getNewLocationData(event, locationID);
 }
