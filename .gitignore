@@ -1,4 +1,4 @@
 /node_modules/
 
-# Ignore .env file containing environment variables
+# Ignore .env file containing environment variables a
 .env
